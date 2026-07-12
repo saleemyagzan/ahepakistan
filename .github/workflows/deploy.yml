@@ -38,9 +38,12 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./ahepakistan/dist/
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          # The action's incremental sync (state file diffing) was silently
-          # failing to upload changed files on this host — the live site kept
-          # serving stale JS/CSS bundle hashes across several deploys despite
-          # each run reporting success. Forcing a full re-upload every time
-          # guarantees the server always matches this build exactly.
-          dangerous-clean-slate: true
+          # The real bug behind stale deploys was FTP_SERVER_DIR pointing to
+          # public_html/ when the FTP account is already chrooted into
+          # public_html on login — every upload silently landed in a nested
+          # public_html/public_html/ that the live site never served. Now
+          # that server-dir is corrected to /, incremental sync (the default,
+          # faster and less prone to FTP timeouts on shared hosting) is safe
+          # to use again — clean-slate isn't needed.
+          dangerous-clean-slate: false
+          log-level: verbose
