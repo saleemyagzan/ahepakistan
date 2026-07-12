@@ -64,7 +64,7 @@ jobs:
           echo "----- Transfer log -----"
           if [ -f /tmp/lftp-xfer.log ]; then
             cat /tmp/lftp-xfer.log
-            UPLOAD_COUNT=$(grep -c '^put ' /tmp/lftp-xfer.log)
+            UPLOAD_COUNT=$(wc -l < /tmp/lftp-xfer.log)
           else
             echo "(no transfer log produced)"
             UPLOAD_COUNT=0
