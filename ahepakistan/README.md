@@ -41,21 +41,34 @@ all four domains and deliberately gets its own page).
 
 All content lives in `src/data/site.ts`.
 
-## Before going live — assets AHE must supply
+## Before going live — still outstanding
 
-1. **Photography.** Every `PhotoSlot` component is a labeled placeholder awaiting real
-   program photography (natural light, real students, outdoor camps / classroom
-   engagement). No stock imagery was used or should be added.
-2. **Official logo.** `src/components/Logo.tsx` is a brand-consistent stand-in.
-   Replace with the official AHE logo files (full color / black / white / icon-only),
-   preserving clear space equal to the height of the "A" in AHE.
-3. **Documents.** Drop real PDFs into `public/documents/`:
-   `secp-certificate-of-incorporation.pdf`, `ahe-annual-report-2024.pdf`,
-   `ahe-annual-report-2023.pdf`, `ahe-annual-report-2022.pdf`.
-4. **Social profiles.** Footer social icons are intentionally omitted until real profile
-   URLs exist (brand rule: never link to "#").
-5. **Partner form backend.** The intake form on the partner page currently confirms
+1. **Annual report PDFs.** `public/documents/` has the real SECP certificate. The
+   2024/2025/2026 annual reports (per `ahepakistan.org/annual-reports/`) haven't been
+   supplied yet — Reports page shows "Coming Soon" for each until the PDFs land in
+   `public/documents/ahe-annual-report-<year>.pdf` and `reports[].available` is flipped
+   to `true` in `src/data/site.ts`.
+2. **Social profile URLs.** Footer icons render muted (no real Facebook/Instagram/
+   LinkedIn/YouTube URLs exist yet). Fill in `socialLinks` in `src/data/site.ts` —
+   icons activate automatically once a URL is non-empty.
+3. **Partner form backend.** The intake form on the partner page currently confirms
    client-side only; wire it to a real endpoint or form service.
-6. **Emotional domain program.** Flagged to AHE per the naming review: no named program
-   exists yet for the Emotional domain — the site notes this on the Emotional
-   Development page.
+4. **Emotional domain program.** No named program exists yet for the Emotional domain —
+   the site notes this on the Emotional Development page.
+5. **Photography.** Most `PhotoSlot`s are still gradient placeholders (About Us leadership
+   portraits, Reports, Blog post images). Real program photography is wired in for the
+   hero, all 4 domains, and 5 flagship programs.
+
+## Known issue — Hostinger image optimizer rejecting new uploads
+
+As of 2026-07-12, the `test` subdomain's LiteSpeed image optimizer started returning
+`422 Invalid source image` for **every new image file** uploaded via the deploy
+pipeline — confirmed with a trivial 100×100 solid-color PNG, so it is not specific to
+any one photo's content. Previously-deployed images (hero, domains, programs) still
+serve fine. Likely a transient service issue or a rate-limit triggered by rapid
+successive deploys while diagnosing it.
+
+The real playground photo (`public/images/students-playground-source.jpg`) is in the
+repo but not currently referenced in `AboutUs.tsx` (see the `TODO` comment there) —
+re-wire it once this clears. If it doesn't clear on its own, check Hostinger's image
+optimization settings in hPanel, or contact their support.

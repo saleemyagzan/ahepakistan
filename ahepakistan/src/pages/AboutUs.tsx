@@ -232,7 +232,9 @@ export function AboutUs() {
           </Reveal>
           <Reveal delay={150}>
             <Parallax strength={0.05}>
-              <PhotoSlot label="Students at play — everyday life, natural light" src="/images/students-playground.png" />
+              {/* TODO: restore src="/images/students-playground.png" once Hostinger's image
+                  optimizer issue clears — see README for details. */}
+              <PhotoSlot label="Students at play — everyday life, natural light" />
             </Parallax>
           </Reveal>
         </div>
