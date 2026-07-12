@@ -1,0 +1,232 @@
+import { Link } from "react-router-dom"
+
+import { CountUp } from "@/components/CountUp"
+import { CtaLink, SectionHeading } from "@/components/Cta"
+import { DomainIcon, OrganicBlob, PhotoSlot, WaveDivider } from "@/components/Organic"
+import { Parallax } from "@/components/Parallax"
+import { Reveal } from "@/components/Reveal"
+import { domains, homePreviewSlugs, PARTNER_URL, programs, stats } from "@/data/site"
+
+export function Home() {
+  const preview = homePreviewSlugs
+    .map((slug) => programs.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
+
+  return (
+    <>
+      {/* ---------- Hero ---------- */}
+      <section className="relative overflow-hidden">
+        {/* Photography slot: full-bleed image of real students outdoors, natural light */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald/15 via-ivory to-royal/10" aria-hidden="true" />
+        <div className="shape-in absolute inset-0" aria-hidden="true">
+          <OrganicBlob className="absolute -right-40 top-10 w-[46rem]" color="#0B6E4F" opacity={0.08} />
+          <OrganicBlob className="absolute -left-56 bottom-0 w-[40rem]" color="#1F3C88" opacity={0.06} />
+        </div>
+        {/* Soft gradient scrim, not a flat dark box */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/40 to-transparent" aria-hidden="true" />
+
+        <div className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-center px-5 pb-24 pt-40 lg:px-8">
+          <h1 className="hero-fade max-w-4xl font-display text-4xl font-bold leading-[1.12] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            Educate the Mind.
+            <br />
+            <span className="text-emerald">Enlighten the Heart.</span>
+            <br />
+            Empower the Soul.
+          </h1>
+          <p className="hero-fade-1 mt-7 max-w-xl font-body text-base leading-relaxed text-ink/70 md:text-lg">
+            Academy for Holistic Education Pakistan is a registered youth-development NGO building young people across
+            four domains — Physical, Mental, Emotional, and Spiritual.
+          </p>
+          <div className="hero-fade-2 mt-10 flex flex-wrap items-center gap-4">
+            <CtaLink to={PARTNER_URL}>Partner With Us</CtaLink>
+            <CtaLink to="/programs/" variant="outline">
+              Explore Programs
+            </CtaLink>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Intro ---------- */}
+      <section className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+        <div className="grid items-center gap-14 lg:grid-cols-2">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Who we are"
+              title="Holistic Education & Youth Development Programs in Pakistan"
+            />
+            <p className="mt-6 font-body text-[0.95rem] leading-relaxed text-ink/75">
+              Founded in 2020 and incorporated with the SECP, AHE Pakistan designs and delivers structured programs —
+              science Olympiads, winter sport, wilderness challenges, residential camps, and digital-skills cohorts —
+              that develop the whole young person, not just the exam result. We work where opportunity is scarcest,
+              beginning in the valleys of Gilgit-Baltistan.
+            </p>
+          </Reveal>
+          <Reveal delay={150}>
+            <Parallax strength={0.05}>
+              <PhotoSlot label="AHE program photography — students in classroom engagement, natural light" />
+            </Parallax>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- Why it matters ---------- */}
+      <section className="relative bg-emerald/[0.04]">
+        <WaveDivider fill="#F8F6F0" flip className="absolute inset-x-0 top-0" />
+        <div className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
+          <Reveal>
+            <SectionHeading eyebrow="The case" title="Why Holistic Education Matters in Pakistan" />
+          </Reveal>
+          <div className="mt-10 grid gap-10 lg:grid-cols-3">
+            {[
+              {
+                h: "Exams are not education",
+                p: "Pakistan's schooling rewards memorisation. Employers, universities, and communities need judgement, character, and initiative — capacities that must be deliberately built.",
+              },
+              {
+                h: "Talent without opportunity",
+                p: "In districts like those of Gilgit-Baltistan, extraordinary young people simply never meet structured competition, mentorship, or challenge. We bring the arena to them.",
+              },
+              {
+                h: "The whole person, or nothing",
+                p: "Physical courage, mental rigour, emotional steadiness, and spiritual direction reinforce each other. Development that ignores any one of them does not hold.",
+              },
+            ].map((item, i) => (
+              <Reveal key={item.h} delay={i * 120}>
+                <h3 className="font-display text-xl font-semibold text-ink">{item.h}</h3>
+                <p className="mt-3 font-body text-sm leading-relaxed text-ink/70">{item.p}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+        <WaveDivider fill="#F8F6F0" className="absolute inset-x-0 bottom-0" />
+      </section>
+
+      {/* ---------- Four domains ---------- */}
+      <section className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
+        <Reveal>
+          <SectionHeading eyebrow="Our framework" title="Four Domains, One Young Person" />
+        </Reveal>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {domains.map((d, i) => (
+            <Reveal key={d.name} delay={i * 120}>
+              <Link
+                to="/our-domains/"
+                className="lift block h-full overflow-hidden rounded-2xl border border-ink/8 bg-ivory"
+              >
+                {/* Thin top accent bar in the domain color — never a full fill */}
+                <div className="h-1" style={{ background: d.color }} />
+                <div className="p-7">
+                  <div className={d.name === "Spiritual" || d.name === "Emotional" ? "breathe inline-block" : "inline-block"}>
+                    <DomainIcon domain={d.name} color={d.color} />
+                  </div>
+                  <h3 className="mt-5 font-display text-xl font-semibold text-ink">{d.name}</h3>
+                  <p className="mt-2.5 font-body text-sm leading-relaxed text-ink/65">{d.tagline}</p>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------- Programs preview ---------- */}
+      <section className="relative bg-royal/[0.04]">
+        <WaveDivider fill="#F8F6F0" flip className="absolute inset-x-0 top-0" />
+        <div className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <Reveal>
+              <SectionHeading eyebrow="What we run" title="Programs That Change Trajectories" accent="#1F3C88" />
+            </Reveal>
+            <Reveal delay={150}>
+              <CtaLink to="/programs/" variant="outline">
+                All Programs
+              </CtaLink>
+            </Reveal>
+          </div>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {preview.map((p, i) => (
+              <Reveal key={p.slug} delay={i * 110}>
+                <Link to={`/programs/${p.slug}/`} className="lift block h-full overflow-hidden rounded-2xl border border-ink/8 bg-ivory">
+                  <PhotoSlot
+                    label={`${p.name} — program photography`}
+                    from={p.accent}
+                    to="#1F3C88"
+                    ratio="aspect-[16/9]"
+                    className="rounded-none"
+                  />
+                  <div className="p-6">
+                    <div className="flex items-center gap-2">
+                      {p.domains.map((d) => (
+                        <span
+                          key={d}
+                          className="rounded-full px-2.5 py-0.5 font-body text-[0.65rem] font-medium text-ivory"
+                          style={{
+                            background:
+                              p.slug === "the-little-scientist"
+                                ? "#3FA7D6"
+                                : { Physical: "#0B6E4F", Mental: "#1F3C88", Emotional: "#8C3A44", Spiritual: "#C6A84E" }[d],
+                          }}
+                        >
+                          {d}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="mt-3 font-display text-lg font-semibold text-ink">{p.name}</h3>
+                    <p className="mt-2 font-body text-sm leading-relaxed text-ink/65">{p.short}</p>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+        <WaveDivider fill="#F8F6F0" className="absolute inset-x-0 bottom-0" />
+      </section>
+
+      {/* ---------- Impact stats ---------- */}
+      <section className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 110}>
+              <div className="rounded-2xl border border-ink/8 bg-ivory p-8 text-center">
+                <p className="font-display text-4xl font-bold text-emerald">
+                  {s.text ? s.text : <CountUp value={s.value} suffix={s.suffix} />}
+                </p>
+                <p className="mt-2.5 font-body text-sm font-medium text-ink/65">{s.label}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------- Legitimacy ---------- */}
+      <section className="mx-auto max-w-7xl px-5 pb-28 lg:px-8">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl bg-royal px-8 py-14 text-ivory md:px-14">
+            <OrganicBlob className="absolute -right-32 -top-32 w-96" color="#C6A84E" opacity={0.1} />
+            <div className="relative grid items-center gap-10 lg:grid-cols-[1.5fr_1fr]">
+              <div>
+                <SectionHeading eyebrow="Know more about AHE" title="A Registered, Accountable Institution" accent="#C6A84E" light />
+                <p className="mt-6 max-w-xl font-body text-sm leading-relaxed text-ivory/80">
+                  AHE Pakistan was incorporated with the Securities and Exchange Commission of Pakistan on
+                  13 December 2020. Our incorporation certificate and annual reports are public — accountability is
+                  part of how we teach it.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-gold/40 bg-ivory/5 p-7">
+                <p className="font-body text-xs font-medium uppercase tracking-[0.18em] text-gold">SECP Certificate</p>
+                <p className="mt-3 font-display text-lg font-semibold">Certificate of Incorporation</p>
+                <p className="mt-1.5 font-body text-sm text-ivory/70">Registered 13 December 2020</p>
+                <a
+                  href="/documents/secp-certificate-of-incorporation.pdf"
+                  className="lift mt-6 inline-flex rounded-xl border border-gold/60 px-6 py-3 font-body text-sm font-medium text-gold"
+                  download
+                >
+                  Download Certificate
+                </a>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+    </>
+  )
+}
