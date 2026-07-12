@@ -30,48 +30,44 @@ jobs:
         working-directory: ahepakistan
         run: npm run build
 
-      - name: Deploy to Hostinger (test.ahepakistan.org) via lftp
+      - name: Deploy to Hostinger (test.ahepakistan.org) via rsync over SSH
         working-directory: ahepakistan
         env:
-          LFTP_USER: ${{ secrets.FTP_USERNAME }}
-          LFTP_PASS: ${{ secrets.FTP_PASSWORD }}
-          LFTP_HOST: ${{ secrets.FTP_SERVER }}
-          LFTP_DIR: ${{ secrets.FTP_SERVER_DIR }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          set -o pipefail
-          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-          cat > /tmp/deploy.lftp <<SCRIPT
-          set cmd:fail-exit true
-          set ftp:ssl-allow no
-          set ftp:passive-mode true
-          set net:max-retries 5
-          set net:timeout 20
-          set net:reconnect-interval-base 5
-          set net:reconnect-interval-multiplier 1
-          set xfer:log yes
-          set xfer:log-file /tmp/lftp-xfer.log
-          open -u "$LFTP_USER","$LFTP_PASS" "$LFTP_HOST"
-          pwd
-          cd "$LFTP_DIR"
-          pwd
-          ls
-          mirror -R --delete --verbose=3 --parallel=2 ./dist/ .
-          bye
-          SCRIPT
+          set -o pipefail -e
 
-          lftp -f /tmp/deploy.lftp 2>&1 | tee /tmp/lftp-session.log
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p 65002 145.79.58.152 >> ~/.ssh/known_hosts 2>/dev/null
 
-          echo "----- Transfer log -----"
-          if [ -f /tmp/lftp-xfer.log ]; then
-            cat /tmp/lftp-xfer.log
-            UPLOAD_COUNT=$(wc -l < /tmp/lftp-xfer.log)
-          else
-            echo "(no transfer log produced)"
-            UPLOAD_COUNT=0
-          fi
-          echo "----- Files actually uploaded: $UPLOAD_COUNT -----"
+          SSH_CMD="ssh -i ~/.ssh/deploy_key -p 65002 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15"
+          TARGET="/home/u901645794/domains/test.ahepakistan.org/public_html/"
+          REMOTE="u901645794@145.79.58.152"
 
-          if [ "$UPLOAD_COUNT" -eq 0 ]; then
-            echo "::error::lftp reported success but uploaded 0 files — connection/login worked but transfers did not happen. See job log above for the pwd/ls diagnostic output and full session log."
+          echo "----- Pre-deploy diagnostic -----"
+          $SSH_CMD "$REMOTE" "echo Connected as: \$(whoami); echo Home: \$(pwd); echo Target listing:; ls -la '$TARGET' 2>&1 | head -15" || true
+
+          echo "----- Syncing files (rsync -avz --delete) -----"
+          rsync -avz --delete -e "$SSH_CMD" ./dist/ "$REMOTE:$TARGET"
+
+          echo "----- Post-deploy verification -----"
+          $SSH_CMD "$REMOTE" "ls -la '$TARGET' | head -20" || true
+
+          REMOTE_INDEX_HASH=$($SSH_CMD "$REMOTE" "md5sum '${TARGET}index.html' 2>/dev/null | cut -d' ' -f1" || echo "")
+          LOCAL_INDEX_HASH=$(md5sum ./dist/index.html | cut -d' ' -f1)
+          echo "Local index.html md5:  $LOCAL_INDEX_HASH"
+          echo "Remote index.html md5: $REMOTE_INDEX_HASH"
+
+          if [ -z "$REMOTE_INDEX_HASH" ]; then
+            echo "::error::index.html not found on remote after rsync — sync did not reach $TARGET"
             exit 1
           fi
+
+          if [ "$LOCAL_INDEX_HASH" != "$REMOTE_INDEX_HASH" ]; then
+            echo "::error::index.html md5 mismatch after rsync — local and remote differ. Sync ran but content doesn't match."
+            exit 1
+          fi
+
+          echo "----- Verified: remote index.html matches this build exactly -----"
