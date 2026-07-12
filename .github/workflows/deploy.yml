@@ -46,49 +46,27 @@ jobs:
           TARGET="/home/u901645794/domains/test.ahepakistan.org/public_html/"
           REMOTE="u901645794@145.79.58.152"
 
-          echo "----- Pre-deploy diagnostic -----"
-          $SSH_CMD "$REMOTE" "echo Connected as: \$(whoami); echo Home: \$(pwd); echo Target listing:; ls -la '$TARGET' 2>&1 | head -15" || true
-
-          echo "----- Syncing files (rsync -avz --delete) -----"
+          echo "----- Syncing files to server (rsync -avz --delete over SSH) -----"
           rsync -avz --delete -e "$SSH_CMD" ./dist/ "$REMOTE:$TARGET"
 
-          echo "----- Post-deploy verification -----"
-          $SSH_CMD "$REMOTE" "ls -la '$TARGET' | head -20" || true
-
+          # Verify the deploy actually landed by md5-comparing the local build's
+          # index.html against the copy now on the server. This guards against the
+          # "reports success but uploaded nothing" failures we hit with FTP/lftp —
+          # if the hashes don't match, fail the job loudly rather than silently.
           REMOTE_INDEX_HASH=$($SSH_CMD "$REMOTE" "md5sum '${TARGET}index.html' 2>/dev/null | cut -d' ' -f1" || echo "")
           LOCAL_INDEX_HASH=$(md5sum ./dist/index.html | cut -d' ' -f1)
           echo "Local index.html md5:  $LOCAL_INDEX_HASH"
           echo "Remote index.html md5: $REMOTE_INDEX_HASH"
 
-          if [ -z "$REMOTE_INDEX_HASH" ]; then
-            echo "::error::index.html not found on remote after rsync — sync did not reach $TARGET"
-            exit 1
-          fi
-
           if [ "$LOCAL_INDEX_HASH" != "$REMOTE_INDEX_HASH" ]; then
-            echo "::error::index.html md5 mismatch after rsync — local and remote differ. Sync ran but content doesn't match."
+            echo "::error::index.html on server does not match this build after rsync."
             exit 1
           fi
+          echo "----- Verified: server matches this build exactly -----"
 
-          echo "----- Verified: remote index.html matches this build exactly -----"
-
-          echo "----- Ground-truth: read marker file back off the server disk via SSH -----"
-          DISK_MARKER=$($SSH_CMD "$REMOTE" "cat '${TARGET}deploy-check.txt' 2>/dev/null" || echo "(marker not present on disk)")
-          DISK_LISTING=$($SSH_CMD "$REMOTE" "ls -la '$TARGET' | head -25" 2>/dev/null || echo "(listing failed)")
-          echo "Marker on disk: $DISK_MARKER"
-
-          # Route to the run Summary page, which renders as plain markdown (not the
-          # virtualized log viewer), so the disk ground-truth is easy to read.
-          {
-            echo "## Deploy ground-truth"
-            echo ""
-            echo "**Marker file read straight off server disk via SSH:**"
-            echo '```'
-            echo "$DISK_MARKER"
-            echo '```'
-            echo ""
-            echo "**Directory listing of \`$TARGET\`:**"
-            echo '```'
-            echo "$DISK_LISTING"
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+          # NOTE: test.ahepakistan.org is fronted by Hostinger's CDN (ALIAS ->
+          # cdn.hstgr.net). The CDN auto-clears every ~30 min, so changes appear
+          # within that window automatically. For an immediate refresh, purge via
+          # hPanel -> Cache Manager -> Purge All, or disable Automatic cache on the
+          # test subdomain so deploys show instantly.
+          echo "Deploy complete. If the live site looks stale, purge the CDN cache in hPanel (auto-clears within ~30 min)."

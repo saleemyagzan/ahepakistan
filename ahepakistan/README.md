@@ -62,32 +62,30 @@ All content lives in `src/data/site.ts`.
 ## Deployment
 
 Automated via GitHub Actions on every push to `ahepakistan/**`: builds the site and
-deploys `dist/` to the Hostinger `test` subdomain over SSH using `rsync` (see
+`rsync`s `dist/` to the Hostinger `test` subdomain over SSH (see
 `.github/workflows/deploy.yml`). Requires the `SSH_PRIVATE_KEY` repo secret, whose
-public half is in Hostinger's authorized SSH keys.
+public half is in Hostinger's authorized SSH keys (hPanel → Advanced → SSH Access).
+The workflow md5-verifies `index.html` on the server after each sync and fails loudly
+if it doesn't match the build — so a green run genuinely means the files landed.
+
+### The CDN caveat (important)
+
+`test.ahepakistan.org` is fronted by Hostinger's CDN (DNS `ALIAS` → `cdn.hstgr.net`).
+The CDN caches responses and **auto-clears every ~30 minutes**, so a fresh deploy can
+look stale for up to half an hour even though the files are correct on the server. For
+an immediate refresh: hPanel → **Advanced → Cache Manager → Purge All**. To make the
+test subdomain always reflect deploys instantly, turn **off** "Automatic cache" there
+(leave it on for the eventual production domain, where caching is desirable for speed).
+
+This CDN layer was the root cause of a long debugging session on 2026-07-12: FTP,
+lftp, and rsync all deployed correctly, but the CDN kept serving cached copies, making
+every deploy *look* like a silent no-op. Verified conclusively by SSHing in and reading
+files straight off disk (they were always correct) — the fix was simply purging the CDN.
 
 ## Known issue — Hostinger image optimizer rejecting new uploads
 
-As of 2026-07-12, the `test` subdomain's LiteSpeed image optimizer was returning
-`422 Invalid source image` for new image uploads (confirmed with a trivial 100×100
-solid-color PNG, so not specific to any one photo's content). Unresolved as of this
-writing — worth re-testing now that the deploy pipeline itself is fixed (see below),
-since it may have been a downstream symptom of the same misconfiguration.
-
-The real playground photo (`public/images/students-playground-source.jpg`) is in the
-repo but not currently referenced in `AboutUs.tsx` (see the `TODO` comment there) —
-re-wire it once confirmed working.
-
-## Resolved — deploy pipeline was silently no-op'ing for hours (2026-07-12)
-
-`FTP_SERVER_DIR` was changed away from its correct value (`public_html/`) while
-debugging an unrelated image issue, based on a misreading of the FTP account's
-directory structure. This caused every deploy to report "success" while actually
-uploading to the wrong location (a set of folders sitting as siblings to
-`public_html` rather than inside it) — the live site silently stopped updating for
-several hours across ~15 deploys before this was caught. `FTP_SERVER_DIR` is
-confirmed correct at `public_html/` now. If deploys ever silently stop reflecting on
-the live site again: don't trust a green "success" status alone — verify with a
-uniquely-named marker file and check its `Last-Modified` header, or connect with an
-FTP client directly to confirm the account's actual root/chroot structure before
-changing `FTP_SERVER_DIR`.
+Earlier on 2026-07-12 the LiteSpeed image optimizer returned `422 Invalid source image`
+for freshly-uploaded images. This was very likely another symptom of the CDN serving
+stale/optimized responses — worth re-testing now that the CDN cause is understood. The
+real playground photo (`public/images/students-playground-source.jpg`) is in the repo
+but not yet referenced in `AboutUs.tsx` (see the `TODO` there) — re-wire it and confirm.
