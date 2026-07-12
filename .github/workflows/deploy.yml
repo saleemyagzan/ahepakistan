@@ -38,8 +38,9 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./ahepakistan/dist/
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          # Not deleting remote files that aren't in this build yet — safer
-          # while we're still confirming the server-dir path is correct.
-          # Once confirmed, this can be set to true to keep the server
-          # perfectly in sync with each deploy.
-          dangerous-clean-slate: false
+          # The action's incremental sync (state file diffing) was silently
+          # failing to upload changed files on this host — the live site kept
+          # serving stale JS/CSS bundle hashes across several deploys despite
+          # each run reporting success. Forcing a full re-upload every time
+          # guarantees the server always matches this build exactly.
+          dangerous-clean-slate: true
