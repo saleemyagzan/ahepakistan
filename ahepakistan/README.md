@@ -3,6 +3,9 @@
 Premium motion website for the Academy for Holistic Education Pakistan (SECP CUIN 0305112),
 built to the "Modern Organic / Sophisticated Calming" brand system.
 
+Live test deploy: https://test.ahepakistan.org (auto-deployed via GitHub Actions on every
+push to `ahepakistan/**`).
+
 ## Stack
 
 Vite + React 18 + TypeScript + Tailwind CSS + React Router.
