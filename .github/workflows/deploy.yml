@@ -71,3 +71,7 @@ jobs:
           fi
 
           echo "----- Verified: remote index.html matches this build exactly -----"
+
+          echo "----- Ground-truth: read marker file back off the server disk via SSH -----"
+          echo "What SSH sees on disk at ${TARGET}deploy-check.txt:"
+          $SSH_CMD "$REMOTE" "cat '${TARGET}deploy-check.txt' 2>&1 || echo '(marker not present on disk)'"
