@@ -30,20 +30,23 @@ jobs:
         working-directory: ahepakistan
         run: npm run build
 
-      - name: Deploy to Hostinger (test.ahepakistan.org) via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./ahepakistan/dist/
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          # The real bug behind stale deploys was FTP_SERVER_DIR pointing to
-          # public_html/ when the FTP account is already chrooted into
-          # public_html on login — every upload silently landed in a nested
-          # public_html/public_html/ that the live site never served. Now
-          # that server-dir is corrected to /, incremental sync (the default,
-          # faster and less prone to FTP timeouts on shared hosting) is safe
-          # to use again — clean-slate isn't needed.
-          dangerous-clean-slate: false
-          log-level: verbose
+      - name: Deploy to Hostinger (test.ahepakistan.org) via lftp
+        working-directory: ahepakistan
+        env:
+          LFTP_USER: ${{ secrets.FTP_USERNAME }}
+          LFTP_PASS: ${{ secrets.FTP_PASSWORD }}
+          LFTP_HOST: ${{ secrets.FTP_SERVER }}
+          LFTP_DIR: ${{ secrets.FTP_SERVER_DIR }}
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          cat > /tmp/deploy.lftp <<SCRIPT
+          set ftp:ssl-allow no
+          set net:max-retries 5
+          set net:timeout 20
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-multiplier 1
+          open -u "$LFTP_USER","$LFTP_PASS" "$LFTP_HOST"
+          mirror -R --delete --verbose --parallel=2 ./dist/ "$LFTP_DIR"
+          bye
+          SCRIPT
+          lftp -f /tmp/deploy.lftp
