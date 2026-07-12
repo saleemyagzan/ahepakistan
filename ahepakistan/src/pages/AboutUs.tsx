@@ -232,7 +232,7 @@ export function AboutUs() {
           </Reveal>
           <Reveal delay={150}>
             <Parallax strength={0.05}>
-              <PhotoSlot label="Students at play — everyday life, natural light" src="/images/school-life.jpg" />
+              <PhotoSlot label="Students at play — everyday life, natural light" src="/images/students-playground.jpg" />
             </Parallax>
           </Reveal>
         </div>
