@@ -73,5 +73,22 @@ jobs:
           echo "----- Verified: remote index.html matches this build exactly -----"
 
           echo "----- Ground-truth: read marker file back off the server disk via SSH -----"
-          echo "What SSH sees on disk at ${TARGET}deploy-check.txt:"
-          $SSH_CMD "$REMOTE" "cat '${TARGET}deploy-check.txt' 2>&1 || echo '(marker not present on disk)'"
+          DISK_MARKER=$($SSH_CMD "$REMOTE" "cat '${TARGET}deploy-check.txt' 2>/dev/null" || echo "(marker not present on disk)")
+          DISK_LISTING=$($SSH_CMD "$REMOTE" "ls -la '$TARGET' | head -25" 2>/dev/null || echo "(listing failed)")
+          echo "Marker on disk: $DISK_MARKER"
+
+          # Route to the run Summary page, which renders as plain markdown (not the
+          # virtualized log viewer), so the disk ground-truth is easy to read.
+          {
+            echo "## Deploy ground-truth"
+            echo ""
+            echo "**Marker file read straight off server disk via SSH:**"
+            echo '```'
+            echo "$DISK_MARKER"
+            echo '```'
+            echo ""
+            echo "**Directory listing of \`$TARGET\`:**"
+            echo '```'
+            echo "$DISK_LISTING"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
