@@ -8,6 +8,7 @@ export interface Domain {
   keyAreas: string[]
   whyItMatters: string
   programs: { name: string; to: string }[]
+  image: string
 }
 
 export const PARTNER_URL = "/partner-with-us-ahe-pakistan/"
@@ -33,6 +34,7 @@ export const domains: Domain[] = [
       { name: "Snow Olympiad", to: "/programs/snow-olympiad/" },
       { name: "GB Survivor", to: "/programs/gb-survivor/" },
     ],
+    image: "/images/domain-physical.jpg",
   },
   {
     name: "Mental",
@@ -44,6 +46,7 @@ export const domains: Domain[] = [
     whyItMatters:
       "Talent is evenly distributed; opportunity is not. Mental development programming closes that gap with rigour, not shortcuts.",
     programs: [{ name: "The Little Scientist", to: "/programs/the-little-scientist/" }],
+    image: "/images/domain-mental.jpg",
   },
   {
     name: "Emotional",
@@ -55,6 +58,7 @@ export const domains: Domain[] = [
     whyItMatters:
       "A brilliant student who cannot speak in a room, or recover from a failure, is not yet prepared for life. Emotional capability turns potential into contribution.",
     programs: [{ name: "Emotional Development", to: "/programs/emotional-development/" }],
+    image: "/images/domain-emotional.jpg",
   },
   {
     name: "Spiritual",
@@ -66,6 +70,7 @@ export const domains: Domain[] = [
     whyItMatters:
       "Direction outlasts motivation. Students who know why they are learning keep going long after external rewards fade.",
     programs: [{ name: "Jugnoo Camp", to: "/programs/jugnoo-camp/" }],
+    image: "/images/domain-spiritual.jpg",
   },
 ]
 
@@ -80,6 +85,7 @@ export interface Program {
   cta: string
   inDropdown: boolean
   note?: string
+  image?: string
 }
 
 export const programs: Program[] = [
@@ -168,6 +174,7 @@ export const programs: Program[] = [
     ],
     cta: "Enter the Olympiad",
     inDropdown: true,
+    image: "/images/program-little-scientist.jpg",
   },
   {
     slug: "youth-leadership",
@@ -202,6 +209,7 @@ export const programs: Program[] = [
     ],
     cta: "Apply to the Next Cohort",
     inDropdown: true,
+    image: "/images/program-51-freelancers.jpg",
   },
   {
     slug: "snow-olympiad",
@@ -219,6 +227,7 @@ export const programs: Program[] = [
     ],
     cta: "Register Interest",
     inDropdown: false,
+    image: "/images/program-snow-olympiad.jpg",
   },
   {
     slug: "gb-survivor",
@@ -236,6 +245,7 @@ export const programs: Program[] = [
     ],
     cta: "Register Interest",
     inDropdown: false,
+    image: "/images/program-gb-survivor.jpg",
   },
   {
     slug: "jugnoo-camp",
@@ -253,6 +263,7 @@ export const programs: Program[] = [
     ],
     cta: "Register Interest",
     inDropdown: false,
+    image: "/images/program-jugnoo-camp.jpg",
   },
 ]
 

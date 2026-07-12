@@ -29,6 +29,7 @@ export function ProgramDetail() {
           <Parallax strength={0.04}>
             <PhotoSlot
               label={`${program.name} — hero photography, real students, natural light`}
+              src={program.image}
               from={program.accent}
               to="#1F3C88"
               ratio="aspect-[21/9]"

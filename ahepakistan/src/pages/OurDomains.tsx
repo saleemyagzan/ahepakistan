@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 
 import { SectionHeading } from "@/components/Cta"
-import { DomainIcon, OrganicBlob } from "@/components/Organic"
+import { DomainIcon, OrganicBlob, PhotoSlot } from "@/components/Organic"
 import { PageHero } from "@/components/PageHero"
 import { Reveal } from "@/components/Reveal"
 import { domains } from "@/data/site"
@@ -85,6 +85,9 @@ export function OurDomains() {
                 </Reveal>
               </div>
               <div className="space-y-6">
+                <Reveal delay={50}>
+                  <PhotoSlot label={`${d.name} domain`} src={d.image} from={d.color} to={d.color} ratio="aspect-[4/3]" />
+                </Reveal>
                 <Reveal delay={100}>
                   <div className="rounded-2xl border border-ink/8 bg-ivory p-7">
                     <div className="h-1 w-10" style={{ background: d.color }} />

@@ -23,6 +23,7 @@ export function ProgramsIndex() {
               >
                 <PhotoSlot
                   label={`${p.name} — program photography`}
+                  src={p.image}
                   from={p.accent}
                   to="#2A2A2A"
                   ratio="aspect-[16/9]"

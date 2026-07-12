@@ -13,4 +13,11 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
   },
+  build: {
+    // Emit hashed JS/CSS directly at the build root instead of inside an
+    // assets/ subfolder — some shared-hosting zip extractors mis-set
+    // permissions on nested folders, which breaks these render-blocking
+    // files. Keeping them flat avoids that failure mode entirely.
+    assetsDir: "",
+  },
 })

@@ -159,6 +159,49 @@
   animation: shape-in 1.6s var(--ease-calm) both;
 }
 
+/* Ambient background drift — sitewide, very slow, low-amplitude wander. Decorative depth only. */
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(3%, -2.5%) rotate(4deg);
+  }
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-3%, 3%) rotate(-3deg);
+  }
+}
+
+@keyframes drift-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(2%, 2.5%) scale(1.04);
+  }
+}
+
+.drift-a {
+  animation: drift-a 38s var(--ease-calm) infinite;
+}
+
+.drift-b {
+  animation: drift-b 46s var(--ease-calm) infinite;
+}
+
+.drift-c {
+  animation: drift-c 32s var(--ease-calm) infinite;
+}
+
 /* Org-chart draw-in */
 .org-line {
   transition: transform 0.8s var(--ease-calm);
@@ -196,7 +239,10 @@
   .hero-fade,
   .hero-fade-1,
   .hero-fade-2,
-  .shape-in {
+  .shape-in,
+  .drift-a,
+  .drift-b,
+  .drift-c {
     animation: none;
   }
 

@@ -97,13 +97,24 @@ export function PhotoSlot({
   to = "#1F3C88",
   className,
   ratio = "aspect-[4/3]",
+  src,
 }: {
   label: string
   from?: string
   to?: string
   className?: string
   ratio?: string
+  /** When provided, renders this image instead of the gradient placeholder. */
+  src?: string
 }) {
+  if (src) {
+    return (
+      <div className={cn("relative overflow-hidden rounded-2xl", ratio, className)}>
+        <img src={src} alt={label} className="h-full w-full object-cover" loading="lazy" />
+      </div>
+    )
+  }
+
   return (
     <div
       className={cn("grain relative overflow-hidden rounded-2xl", ratio, className)}

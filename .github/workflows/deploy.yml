@@ -1,0 +1,45 @@
+name: Build and Deploy AHE Pakistan (test subdomain)
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "ahepakistan/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: ahepakistan/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ahepakistan
+        run: npm ci
+
+      - name: Build
+        working-directory: ahepakistan
+        run: npm run build
+
+      - name: Deploy to Hostinger (test.ahepakistan.org) via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./ahepakistan/dist/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          # Not deleting remote files that aren't in this build yet — safer
+          # while we're still confirming the server-dir path is correct.
+          # Once confirmed, this can be set to true to keep the server
+          # perfectly in sync with each deploy.
+          dangerous-clean-slate: false

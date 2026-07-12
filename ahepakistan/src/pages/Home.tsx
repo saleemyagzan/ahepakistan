@@ -16,14 +16,15 @@ export function Home() {
     <>
       {/* ---------- Hero ---------- */}
       <section className="relative overflow-hidden">
-        {/* Photography slot: full-bleed image of real students outdoors, natural light */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald/15 via-ivory to-royal/10" aria-hidden="true" />
-        <div className="shape-in absolute inset-0" aria-hidden="true">
-          <OrganicBlob className="absolute -right-40 top-10 w-[46rem]" color="#0B6E4F" opacity={0.08} />
-          <OrganicBlob className="absolute -left-56 bottom-0 w-[40rem]" color="#1F3C88" opacity={0.06} />
-        </div>
+        <img
+          src="/images/hero-landscape.jpg"
+          alt=""
+          className="shape-in absolute inset-0 h-full w-full object-cover"
+          aria-hidden="true"
+        />
         {/* Soft gradient scrim, not a flat dark box */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/40 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/55 to-ivory/10" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ivory/50 via-transparent to-transparent" aria-hidden="true" />
 
         <div className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-center px-5 pb-24 pt-40 lg:px-8">
           <h1 className="hero-fade max-w-4xl font-display text-4xl font-bold leading-[1.12] tracking-tight text-ink sm:text-5xl lg:text-6xl">
@@ -115,6 +116,7 @@ export function Home() {
               >
                 {/* Thin top accent bar in the domain color — never a full fill */}
                 <div className="h-1" style={{ background: d.color }} />
+                <PhotoSlot label={`${d.name} domain`} src={d.image} from={d.color} to={d.color} ratio="aspect-[16/10]" className="rounded-none" />
                 <div className="p-7">
                   <div className={d.name === "Spiritual" || d.name === "Emotional" ? "breathe inline-block" : "inline-block"}>
                     <DomainIcon domain={d.name} color={d.color} />
@@ -148,6 +150,7 @@ export function Home() {
                 <Link to={`/programs/${p.slug}/`} className="lift block h-full overflow-hidden rounded-2xl border border-ink/8 bg-ivory">
                   <PhotoSlot
                     label={`${p.name} — program photography`}
+                    src={p.image}
                     from={p.accent}
                     to="#1F3C88"
                     ratio="aspect-[16/9]"
