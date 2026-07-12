@@ -4,7 +4,7 @@ Premium motion website for the Academy for Holistic Education Pakistan (SECP CUI
 built to the "Modern Organic / Sophisticated Calming" brand system.
 
 Live test deploy: https://test.ahepakistan.org (auto-deployed via GitHub Actions on every
-push to `ahepakistan/**`).
+push to `ahepakistan/**`, deployed to the Hostinger test subdomain via FTP).
 
 ## Stack
 
