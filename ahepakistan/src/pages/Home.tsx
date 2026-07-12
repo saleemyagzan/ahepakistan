@@ -2,10 +2,11 @@ import { Link } from "react-router-dom"
 
 import { CountUp } from "@/components/CountUp"
 import { CtaLink, SectionHeading } from "@/components/Cta"
-import { DomainIcon, OrganicBlob, PhotoSlot, WaveDivider } from "@/components/Organic"
+import { DomainBadge, OrganicBlob, PhotoSlot, WaveDivider } from "@/components/Organic"
 import { Parallax } from "@/components/Parallax"
 import { Reveal } from "@/components/Reveal"
 import { domains, homePreviewSlugs, PARTNER_URL, programs, stats } from "@/data/site"
+import { cn } from "@/lib/utils"
 
 export function Home() {
   const preview = homePreviewSlugs
@@ -57,7 +58,7 @@ export function Home() {
             />
             <p className="mt-6 font-body text-[0.95rem] leading-relaxed text-ink/75">
               Founded in 2020 and incorporated with the SECP, AHE Pakistan designs and delivers structured programs —
-              science Olympiads, winter sport, wilderness challenges, residential camps, and digital-skills cohorts —
+              math competitions, winter sport, wilderness challenges, residential camps, and digital-skills cohorts —
               that develop the whole young person, not just the exam result. We work where opportunity is scarcest,
               beginning in the valleys of Gilgit-Baltistan.
             </p>
@@ -112,17 +113,30 @@ export function Home() {
             <Reveal key={d.name} delay={i * 120}>
               <Link
                 to="/our-domains/"
-                className="lift block h-full overflow-hidden rounded-2xl border border-ink/8 bg-ivory"
+                className="card-pop group block h-full overflow-hidden rounded-2xl border-2 bg-ivory transition-colors duration-400"
+                style={{ borderColor: `${d.color}33` }}
               >
-                {/* Thin top accent bar in the domain color — never a full fill */}
-                <div className="h-1" style={{ background: d.color }} />
-                <PhotoSlot label={`${d.name} domain`} src={d.image} from={d.color} to={d.color} ratio="aspect-[16/10]" className="rounded-none" />
-                <div className="p-7">
-                  <div className={d.name === "Spiritual" || d.name === "Emotional" ? "breathe inline-block" : "inline-block"}>
-                    <DomainIcon domain={d.name} color={d.color} />
+                <div className="relative">
+                  <PhotoSlot label={`${d.name} domain`} src={d.image} from={d.color} to={d.color} ratio="aspect-[16/10]" className="rounded-none" />
+                  <div
+                    className={cn(
+                      "absolute -bottom-6 left-6",
+                      (d.name === "Spiritual" || d.name === "Emotional") && "breathe",
+                    )}
+                  >
+                    <DomainBadge domain={d.name} color={d.color} className="ring-4 ring-ivory" />
                   </div>
-                  <h3 className="mt-5 font-display text-xl font-semibold text-ink">{d.name}</h3>
+                </div>
+                <div className="p-7 pt-10">
+                  <h3 className="font-display text-xl font-semibold text-ink">{d.name}</h3>
                   <p className="mt-2.5 font-body text-sm leading-relaxed text-ink/65">{d.tagline}</p>
+                  <span
+                    className="mt-4 inline-flex items-center gap-1.5 font-body text-sm font-medium transition-colors duration-300"
+                    style={{ color: d.color }}
+                  >
+                    Explore
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </span>
                 </div>
               </Link>
             </Reveal>
@@ -147,7 +161,7 @@ export function Home() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {preview.map((p, i) => (
               <Reveal key={p.slug} delay={i * 110}>
-                <Link to={`/programs/${p.slug}/`} className="lift block h-full overflow-hidden rounded-2xl border border-ink/8 bg-ivory">
+                <Link to={`/programs/${p.slug}/`} className="card-pop block h-full overflow-hidden rounded-2xl border border-ink/8 bg-ivory">
                   <PhotoSlot
                     label={`${p.name} — program photography`}
                     src={p.image}

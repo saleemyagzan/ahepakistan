@@ -7,16 +7,16 @@ import { Parallax } from "@/components/Parallax"
 import { Reveal } from "@/components/Reveal"
 
 const audiences = [
-  { h: "Schools & Colleges", p: "Host an Olympiad round, send a cohort to camp, or embed four-domain programming into your calendar." },
-  { h: "Corporates & CSR", p: "Fund a named program cycle with full reporting — every rupee traced to a student outcome." },
-  { h: "Foundations & NGOs", p: "Co-design and co-deliver programming in districts you serve; we bring the framework and trainers." },
-  { h: "Government & Districts", p: "Bring structured youth development to your district with a registered, reporting partner." },
+  { h: "Corporate Sponsors", p: "Fund a named program cycle with full reporting — every rupee traced to a student outcome." },
+  { h: "Schools", p: "Host a competition round, send a cohort to camp, or embed four-domain programming into your calendar." },
+  { h: "NGOs", p: "Co-design and co-deliver programming in districts you serve; we bring the framework and trainers." },
+  { h: "Community Organizations", p: "Bring structured youth development to your community with a registered, reporting partner." },
 ]
 
 const offers = [
-  "A tested four-domain program framework, delivered to written standards",
-  "SECP registration, public annual reports, and transparent budgeting",
-  "On-ground teams in Gilgit-Baltistan with five years of delivery",
+  "Structured youth development programs, delivered to written standards",
+  "Trained facilitators and a scalable implementation model",
+  "SECP registration, public annual reports, and impact reporting",
   "Named recognition across program materials, ceremonies, and reports",
 ]
 
@@ -66,9 +66,8 @@ export function Partner() {
                 ))}
               </ul>
               <p className="mt-8 max-w-lg font-body text-sm leading-relaxed text-ink/70">
-                Why partner? Because youth development in Pakistan's hardest-to-reach districts doesn't need another
-                pilot — it needs institutions that stay. AHE has stayed for five years. Partners make the sixth
-                bigger than the first five combined.
+                Most collaborations fail due to lack of structure. We bring clarity, systems, and measurable
+                outcomes — five years running, in the districts other institutions don't reach.
               </p>
             </Reveal>
             <Reveal delay={150}>

@@ -1,6 +1,7 @@
 import { PhotoSlot } from "@/components/Organic"
 import { PageHero } from "@/components/PageHero"
 import { Reveal } from "@/components/Reveal"
+import { ShareButtons } from "@/components/ShareButtons"
 import { domainColor, stories } from "@/data/site"
 
 export function ImpactStories() {
@@ -16,7 +17,7 @@ export function ImpactStories() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {stories.map((s, i) => (
             <Reveal key={s.name} delay={(i % 3) * 110}>
-              <article className="lift flex h-full flex-col overflow-hidden rounded-2xl border border-ink/8 bg-ivory">
+              <article className="card-pop flex h-full flex-col overflow-hidden rounded-2xl border border-ink/8 bg-ivory">
                 <PhotoSlot
                   label={`${s.program} — student photography`}
                   from={domainColor[s.domain]}
@@ -32,6 +33,7 @@ export function ImpactStories() {
                       {s.program}
                     </p>
                   </div>
+                  <ShareButtons title={`${s.name}'s story — AHE Pakistan`} className="mt-4" />
                 </div>
               </article>
             </Reveal>

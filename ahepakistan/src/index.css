@@ -103,6 +103,24 @@
   box-shadow: 0 18px 40px -18px rgba(42, 42, 42, 0.28);
 }
 
+/* Livelier card interaction — a touch more energy than .lift, for cards a
+   visitor is meant to enjoy exploring (domain/program/story cards). Still
+   ease-in-out, still no bounce. */
+.card-pop {
+  transition:
+    transform 0.4s var(--ease-calm),
+    box-shadow 0.4s var(--ease-calm);
+}
+
+.card-pop:hover {
+  transform: scale(1.035) rotate(-0.6deg);
+  box-shadow: 0 24px 48px -20px rgba(42, 42, 42, 0.32);
+}
+
+.card-pop:nth-child(even):hover {
+  transform: scale(1.035) rotate(0.6deg);
+}
+
 /* Breathing pulse — Spiritual/Emotional accents ONLY. 5s calm loop. */
 @keyframes breathe {
   0%,
@@ -202,6 +220,39 @@
   animation: drift-c 32s var(--ease-calm) infinite;
 }
 
+@keyframes drift-d {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(-2.5%, -3%) rotate(3deg) scale(1.03);
+  }
+}
+
+.drift-d {
+  animation: drift-d 42s var(--ease-calm) infinite;
+}
+
+/* Slow hue-cycling flowing wash — continuous motion across the brand palette. */
+@keyframes flow-wash {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.flow-wash {
+  background: linear-gradient(120deg, #0b6e4f22, #1f3c8822, #c6a84e22, #8c3a4422, #0b6e4f22);
+  background-size: 300% 300%;
+  animation: flow-wash 28s ease-in-out infinite;
+}
+
 /* Org-chart draw-in */
 .org-line {
   transition: transform 0.8s var(--ease-calm);
@@ -242,12 +293,16 @@
   .shape-in,
   .drift-a,
   .drift-b,
-  .drift-c {
+  .drift-c,
+  .drift-d,
+  .flow-wash {
     animation: none;
   }
 
   .lift,
-  .lift:hover {
+  .lift:hover,
+  .card-pop,
+  .card-pop:hover {
     transform: none;
     transition: none;
   }

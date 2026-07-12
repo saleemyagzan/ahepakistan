@@ -18,7 +18,7 @@ export function ProgramDetail() {
   return (
     <>
       <PageHero
-        eyebrow={isLittleScientist ? "Elite Science Olympiad" : "Program"}
+        eyebrow={isLittleScientist ? "Math Competition" : "Program"}
         title={program.name}
         intro={program.short}
         accent={program.accent}
@@ -96,7 +96,7 @@ export function ProgramDetail() {
                 </h3>
                 <p className="mt-2.5 font-body text-sm leading-relaxed text-ivory/80">
                   {isLittleScientist
-                    ? "Selection is competitive and standards are high. Registration opens ahead of each Olympiad cycle."
+                    ? "Selection is competitive and standards are high. Registration opens ahead of each competition cycle."
                     : "Registration details are announced ahead of each program cycle. Register interest and we will contact you."}
                 </p>
                 <CtaLink to={PARTNER_URL} variant="gold-outline" className="mt-6 border-gold/70 text-ivory">

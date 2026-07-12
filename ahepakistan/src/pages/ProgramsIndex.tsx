@@ -11,7 +11,7 @@ export function ProgramsIndex() {
       <PageHero
         eyebrow="Programs"
         title="Structured Challenge, Real Standards"
-        intro="Seven programs across four domains — from elite science Olympiads to wilderness survival and digital-economy training. Every card links to its own dedicated page."
+        intro="Seven programs across four domains — from a competitive math Olympiad to wilderness survival and digital-economy training. Every card links to its own dedicated page."
       />
       <section className="mx-auto max-w-7xl px-5 pb-28 pt-8 lg:px-8">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -19,7 +19,7 @@ export function ProgramsIndex() {
             <Reveal key={p.slug} delay={(i % 3) * 110}>
               <Link
                 to={`/programs/${p.slug}/`}
-                className="lift block h-full overflow-hidden rounded-2xl border border-ink/8 bg-ivory"
+                className="card-pop block h-full overflow-hidden rounded-2xl border border-ink/8 bg-ivory"
               >
                 <PhotoSlot
                   label={`${p.name} — program photography`}

@@ -24,12 +24,12 @@ export const domains: Domain[] = [
   {
     name: "Physical",
     color: "#0B6E4F",
-    tagline: "Strong bodies carry strong minds.",
+    tagline: "Discipline, stamina, and resilience — built, not assumed.",
     overview:
-      "Structured outdoor and athletic programming that builds endurance, discipline, and respect for the body. From high-altitude winter sport to wilderness survival, students learn that physical capability is earned through consistent practice.",
-    keyAreas: ["Outdoor expeditions and camps", "Winter and endurance sport", "Survival and self-reliance skills", "Health, nutrition, and rest habits"],
+      "Physical strength is the foundation of discipline. Without it, consistency and resilience weaken. AHE focuses on structured physical development to build endurance, teamwork, and real-world capability through camps, challenge-based activities, sports, and outdoor experiences.",
+    keyAreas: ["Fitness and endurance training", "Outdoor survival challenges", "Team coordination and discipline", "Physical resilience under pressure"],
     whyItMatters:
-      "Physical confidence is the foundation the other domains stand on. A student who has crossed a glacier or completed a survival course approaches the classroom differently.",
+      "Students who develop physical discipline show improved focus, confidence, and performance in other areas of life.",
     programs: [
       { name: "Snow Olympiad", to: "/programs/snow-olympiad/" },
       { name: "GB Survivor", to: "/programs/gb-survivor/" },
@@ -39,36 +39,35 @@ export const domains: Domain[] = [
   {
     name: "Mental",
     color: "#1F3C88",
-    tagline: "Rigour, curiosity, and the courage to compete.",
+    tagline: "Structured thinking that holds up under pressure.",
     overview:
-      "Academic enrichment that treats young Pakistanis as capable of world-class intellectual performance. Competitive science, structured problem-solving, and the study habits that sustain both.",
-    keyAreas: ["Competitive science and Olympiad training", "Critical thinking and inquiry", "Study systems and deep work", "STEM exposure beyond the syllabus"],
+      "Mental clarity is the ability to think, analyze, and decide effectively. AHE builds structured thinking through academic and problem-solving activities — most students memorize formulas but cannot apply them, which is exactly the gap this domain closes.",
+    keyAreas: ["Logical reasoning", "Analytical thinking", "Problem-solving under time pressure", "Academic clarity"],
     whyItMatters:
-      "Talent is evenly distributed; opportunity is not. Mental development programming closes that gap with rigour, not shortcuts.",
+      "Students trained in structured thinking perform better academically and make better decisions in real life.",
     programs: [{ name: "The Little Scientist", to: "/programs/the-little-scientist/" }],
     image: "/images/domain-mental.jpg",
   },
   {
     name: "Emotional",
     color: "#8C3A44",
-    tagline: "Confidence, communication, and character.",
+    tagline: "The strength schools rarely teach.",
     overview:
-      "Deliberate practice in the skills schools rarely teach: speaking with confidence, listening with attention, handling setbacks, and working in teams. Emotional development runs as a thread through every AHE program.",
-    keyAreas: ["Public speaking and communication", "Confidence and self-expression", "Teamwork and conflict navigation", "Resilience and self-regulation"],
+      "Emotional strength is often ignored but critical. Without it, students struggle with stress, communication, and confidence — capacities AHE builds deliberately rather than leaving to chance.",
+    keyAreas: ["Self-awareness", "Confidence building", "Communication skills", "Stress management"],
     whyItMatters:
-      "A brilliant student who cannot speak in a room, or recover from a failure, is not yet prepared for life. Emotional capability turns potential into contribution.",
+      "Emotionally stable individuals perform better in teams, leadership roles, and personal life.",
     programs: [{ name: "Emotional Development", to: "/programs/emotional-development/" }],
     image: "/images/domain-emotional.jpg",
   },
   {
     name: "Spiritual",
     color: "#C6A84E",
-    tagline: "Purpose, reflection, and inner steadiness.",
+    tagline: "Purpose that outlasts motivation.",
     overview:
-      "Quiet, reflective programming — often outdoors, often at night under open sky — that gives students room to ask who they are and what they are for. Grounded, respectful, and never performative.",
-    keyAreas: ["Reflection and journaling practice", "Purpose and values work", "Service and gratitude", "Stillness and attention"],
-    whyItMatters:
-      "Direction outlasts motivation. Students who know why they are learning keep going long after external rewards fade.",
+      "Spiritual development builds purpose and direction. It is not about theory — it is about alignment between actions and values, practiced through reflection under open sky rather than lectures.",
+    keyAreas: ["Values and ethics", "Discipline and responsibility", "Purpose-driven thinking", "Respect and awareness"],
+    whyItMatters: "Students with strong values make better long-term decisions.",
     programs: [{ name: "Jugnoo Camp", to: "/programs/jugnoo-camp/" }],
     image: "/images/domain-spiritual.jpg",
   },
@@ -92,16 +91,16 @@ export const programs: Program[] = [
   {
     slug: "physical-development",
     name: "Physical Development",
-    short: "Outdoor expeditions, winter sport, and survival programming that build disciplined, capable bodies.",
+    short: "Discipline, stamina, coordination, and resilience — treated as preparation for life, not play.",
     domains: ["Physical"],
     accent: "#0B6E4F",
     overview:
-      "AHE's Physical Development track takes students out of the classroom and into Gilgit-Baltistan's mountains, snowfields, and valleys. Flagship programs include the Snow Olympiad and GB Survivor — structured, supervised, and progressively challenging.",
+      "Physical development builds discipline, stamina, coordination, and resilience. At AHE, physical growth is not treated as play — it is treated as preparation for life, delivered through camps, challenge-based activities, sports, and outdoor experiences where students learn by doing.",
     gains: [
-      "Endurance, strength, and outdoor competence",
-      "Discipline built through training cycles, not lectures",
-      "Safety, first-aid, and risk-judgement fundamentals",
-      "The quiet confidence of finishing something hard",
+      "Endurance and physical resilience under pressure",
+      "Discipline built through training, not lectures",
+      "Team coordination and leadership under pressure",
+      "Outdoor adaptability and body-mind coordination",
     ],
     cta: "Register Interest",
     inDropdown: true,
@@ -109,16 +108,16 @@ export const programs: Program[] = [
   {
     slug: "mental-development",
     name: "Mental Development",
-    short: "Academic rigour and competitive science that treat young minds as capable of excellence.",
+    short: "Structured thinking, logical reasoning, and academic clarity — anchored by The Little Scientist.",
     domains: ["Mental"],
     accent: "#1F3C88",
     overview:
-      "The Mental Development track centres on The Little Scientist — AHE's elite science Olympiad — supported by inquiry-based enrichment that goes beyond the syllabus and builds durable study systems.",
+      "The Mental Development track centres on The Little Scientist, AHE's flagship academic competition, supported by structured problem-solving activities that build logical reasoning and analytical thinking beyond the syllabus.",
     gains: [
-      "Structured problem-solving under pressure",
-      "Olympiad-level scientific reasoning",
-      "Study habits that survive exam season",
-      "Exposure to STEM paths and mentors",
+      "Logical reasoning and analytical thinking",
+      "Problem-solving under time pressure",
+      "Academic clarity that carries into the classroom",
+      "Confidence built through competitive practice",
     ],
     cta: "Register Interest",
     inDropdown: true,
@@ -126,33 +125,33 @@ export const programs: Program[] = [
   {
     slug: "emotional-development",
     name: "Emotional Development",
-    short: "Confidence and communication programming — learning to speak, listen, recover, and lead.",
+    short: "Self-awareness, confidence, and communication — the strength schools rarely teach.",
     domains: ["Emotional"],
     accent: "#8C3A44",
     overview:
-      "Emotional Development runs as a deliberate strand across AHE programming: public speaking, teamwork, resilience, and self-regulation, practised in real settings rather than taught from slides.",
+      "Emotional Development runs as a deliberate strand across AHE programming: self-awareness, confidence building, communication skills, and stress management, practised in real settings rather than taught from slides.",
     gains: [
-      "Public speaking and confident self-expression",
-      "Listening, empathy, and team skills",
-      "Composure under setback and pressure",
+      "Self-awareness and confidence building",
+      "Communication skills that transfer to any room",
+      "Stress management under real pressure",
       "Habits of honest self-reflection",
     ],
     cta: "Register Interest",
     inDropdown: true,
-    note: "A dedicated named program for this domain is in development — current emotional-development work is embedded across all AHE camps and Olympiads.",
+    note: "A dedicated named program for this domain is in development — current emotional-development work is embedded across all AHE camps and competitions.",
   },
   {
     slug: "spiritual-development",
     name: "Spiritual Development",
-    short: "Reflective, purpose-centred programming anchored by Jugnoo Camp.",
+    short: "Values, purpose, and direction — anchored by Jugnoo Camp.",
     domains: ["Spiritual"],
     accent: "#C6A84E",
     overview:
-      "The Spiritual Development track gives students structured room for reflection, purpose, and service — anchored by Jugnoo Camp, AHE's flagship residential experience.",
+      "The Spiritual Development track gives students structured room for values, purpose, and direction — anchored by Jugnoo Camp, AHE's flagship residential experience.",
     gains: [
       "A personal sense of purpose and direction",
-      "Reflection and journaling practice",
-      "Gratitude and service orientation",
+      "Values and ethics put into practice",
+      "Discipline and responsibility, self-owned",
       "Steadiness that outlasts motivation",
     ],
     cta: "Register Interest",
@@ -161,18 +160,18 @@ export const programs: Program[] = [
   {
     slug: "the-little-scientist",
     name: "The Little Scientist",
-    short: "AHE's elite science Olympiad — rigorous, competitive, and prestigious.",
+    short: "A structured math competition for Grades 6–8 — logic, speed, and clarity under pressure.",
     domains: ["Mental"],
     accent: "#3FA7D6",
     overview:
-      "The Little Scientist is AHE Pakistan's flagship academic competition: a multi-stage science Olympiad that identifies and develops exceptional young scientific minds. Selection is competitive, standards are high, and finalists earn recognition that follows them.",
+      "Most students memorize formulas but cannot apply them — leading to weak problem-solving skills and low confidence. The Little Scientist is a structured student quiz competition designed to develop logical reasoning, speed, and clarity, open to students from Grades 6–8 across government, private, and AKES schools.",
     gains: [
-      "Olympiad-standard scientific reasoning",
-      "Multi-stage competitive experience",
-      "Recognition, medals, and formal certification",
-      "A community of high-performing peers",
+      "Independent learning skills",
+      "Strong mathematical thinking",
+      "Faster problem-solving under time pressure",
+      "Confidence under pressure, tested on stage",
     ],
-    cta: "Enter the Olympiad",
+    cta: "Register for The Little Scientist",
     inDropdown: true,
     image: "/images/program-little-scientist.jpg",
   },
@@ -196,11 +195,11 @@ export const programs: Program[] = [
   {
     slug: "51-freelancers-program",
     name: "51 Freelancers Program",
-    short: "Digital-economy skills that turn talent into income — 51 trained freelancers at a time.",
+    short: "A 40-day structured training to build real digital skills and income opportunities.",
     domains: ["Mental", "Emotional"],
     accent: "#0B6E4F",
     overview:
-      "The 51 Freelancers Program trains cohorts of young people in marketable digital skills — writing, design, development, and client work — with the explicit goal of each cohort member earning independently online.",
+      "The 51 Freelancers Program is a 40-day structured training that builds real digital skills and income opportunities — writing, design, development, and client work — with the explicit goal of each cohort member earning independently online.",
     gains: [
       "A marketable digital skill, taught to working standard",
       "Client communication and professional conduct",
@@ -232,7 +231,7 @@ export const programs: Program[] = [
   {
     slug: "gb-survivor",
     name: "GB Survivor",
-    short: "A wilderness survival challenge that tests preparation, judgement, and grit.",
+    short: "An outdoor survival program that builds adaptability and leadership.",
     domains: ["Physical"],
     accent: "#0B6E4F",
     overview:
@@ -250,7 +249,7 @@ export const programs: Program[] = [
   {
     slug: "jugnoo-camp",
     name: "Jugnoo Camp",
-    short: "AHE's flagship residential camp — one experience spanning all four domains.",
+    short: "AHE's flagship holistic camp — one experience spanning all four domains.",
     domains: ["Physical", "Mental", "Emotional", "Spiritual"],
     accent: "#C6A84E",
     overview:
@@ -284,73 +283,46 @@ export const stats = [
   { value: 0, suffix: "", label: "Growing Female Participation", text: "Growing" },
 ]
 
+/** Real testimonials, from ahepakistan.org/impact-stories/. Names only — no fabricated ages/grades. */
 export const stories = [
   {
-    name: "Areeba, 15",
+    name: "Imad Ullah",
     program: "The Little Scientist",
-    quote:
-      "I had never competed in anything before. Standing on that stage with a medal — my parents still talk about it.",
+    quote: "I gained confidence in solving problems without fear. This program changed how I think.",
     domain: "Mental" as DomainName,
   },
   {
-    name: "Danish, 17",
-    program: "GB Survivor",
-    quote:
-      "Three days outdoors taught me more about myself than three years of classes. I stopped being afraid of hard things.",
-    domain: "Physical" as DomainName,
-  },
-  {
-    name: "Mahnoor, 16",
-    program: "Jugnoo Camp",
-    quote:
-      "The night reflections changed how I think about my future. I came home with a direction, not just memories.",
-    domain: "Spiritual" as DomainName,
-  },
-  {
-    name: "Hassan, 19",
-    program: "51 Freelancers Program",
-    quote: "I earned my first income online two months after the cohort ended. That changed what my family believes is possible.",
-    domain: "Mental" as DomainName,
-  },
-  {
-    name: "Fatima, 14",
+    name: "Shehzad Karim",
     program: "Snow Olympiad",
-    quote: "Girls from my village had never joined a winter competition. Now my younger sister is training for next year.",
+    quote: "I learned discipline and teamwork. It was more than a competition.",
     domain: "Physical" as DomainName,
   },
   {
-    name: "Ali, 16",
-    program: "Youth Leadership",
-    quote: "Last year I was a camper. This year I helped run the camp. AHE trusted me with responsibility before anyone else did.",
-    domain: "Emotional" as DomainName,
+    name: "Hameed Ullah Baig",
+    program: "51 Freelancers Program",
+    quote: "This training helped me start earning online. It gave me direction.",
+    domain: "Mental" as DomainName,
   },
 ]
 
+/**
+ * Only the SECP certificate is confirmed live (public/documents/). Annual
+ * report PDFs (2024/2025/2026, per ahepakistan.org/annual-reports/) have not
+ * been supplied yet — download buttons are disabled until AHE shares them.
+ */
 export const reports = [
-  {
-    year: "2024",
-    title: "Annual Report 2024",
-    summary: "Program expansion to a third district, the second Snow Olympiad, and the first full 51 Freelancers cohort.",
-  },
-  {
-    year: "2023",
-    title: "Annual Report 2023",
-    summary: "The Little Scientist scales to multi-district selection; Jugnoo Camp runs its largest residential cohort.",
-  },
-  {
-    year: "2022",
-    title: "Annual Report 2022",
-    summary: "Foundation years consolidated: governance, safeguarding policy, and the four-domain program framework.",
-  },
+  { year: "2026", title: "Annual Report 2026", summary: "Pending — will be published once finalized.", available: false },
+  { year: "2025", title: "Annual Report 2025", summary: "Pending — will be published once finalized.", available: false },
+  { year: "2024", title: "Annual Report 2024", summary: "Pending — will be published once finalized.", available: false },
 ]
 
 export const blogPosts = [
   {
-    title: "Why We Built a Science Olympiad for the Mountains",
+    title: "Why We Built a Math Competition for the Mountains",
     date: "12 May 2026",
     domain: "Mental" as DomainName,
     excerpt:
-      "Talent in Gilgit-Baltistan was never in short supply — structured competition was. The Little Scientist exists to close that gap.",
+      "Most students memorize formulas but cannot apply them. The Little Scientist exists to close that gap, one quiz round at a time.",
   },
   {
     title: "What Students Tell Us After Jugnoo Camp",
@@ -374,3 +346,23 @@ export const blogPosts = [
       "Confidence isn't a personality type. It's a set of reps — and our programs are built around getting students those reps.",
   },
 ]
+
+/** Real social profile URLs. Empty string = not yet supplied; icon renders but is visually muted until filled in. */
+export interface SocialLink {
+  platform: "Facebook" | "Instagram" | "LinkedIn" | "YouTube" | "Twitter"
+  url: string
+}
+
+export const socialLinks: SocialLink[] = [
+  { platform: "Facebook", url: "" },
+  { platform: "Instagram", url: "" },
+  { platform: "LinkedIn", url: "" },
+  { platform: "YouTube", url: "" },
+]
+
+/** Site credit — matches the pattern already live on ahepakistan.org's footer. */
+export const siteCredit = {
+  name: "Saleem Yagzan",
+  linkedin: "https://www.linkedin.com/in/salimyagzan/",
+  upwork: "https://www.upwork.com/freelancers/~01a4701679c71ba500",
+}

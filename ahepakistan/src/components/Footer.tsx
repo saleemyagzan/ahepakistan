@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
 
 import { Logo } from "@/components/Logo"
-import { PARTNER_URL } from "@/data/site"
+import { SocialIcons } from "@/components/SocialIcons"
+import { PARTNER_URL, siteCredit } from "@/data/site"
 
 /* Quick Links use the identical URLs as the top nav — no alternate slugs. */
 const quickLinks = [
@@ -15,10 +16,6 @@ const quickLinks = [
   { label: "Blog", to: "/blog/" },
 ]
 
-/*
-  Social icons are intentionally omitted until real profile URLs are supplied —
-  the brand system forbids placeholder "#" links.
-*/
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-royal text-ivory">
@@ -30,6 +27,7 @@ export function Footer() {
               Developing Pakistan's young people across four domains — Physical, Mental, Emotional, and Spiritual —
               through structured, credible, life-changing programs.
             </p>
+            <SocialIcons light className="mt-6" />
           </div>
           <nav aria-label="Quick links">
             <h3 className="font-display text-base font-semibold text-ivory">Quick Links</h3>
@@ -64,9 +62,31 @@ export function Footer() {
           <p className="font-body text-xs text-ivory/60">
             © {new Date().getFullYear()} Academy for Holistic Education Pakistan. All rights reserved.
           </p>
-          <Link to="/privacy-policy/" className="font-body text-xs text-ivory/60 transition-colors duration-300 hover:text-gold">
-            Privacy Policy
-          </Link>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <Link to="/privacy-policy/" className="font-body text-xs text-ivory/60 transition-colors duration-300 hover:text-gold">
+              Privacy Policy
+            </Link>
+            <p className="font-body text-xs text-ivory/45">
+              Site by{" "}
+              <a
+                href={siteCredit.linkedin}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-ivory/60 underline decoration-ivory/25 underline-offset-2 transition-colors duration-300 hover:text-gold"
+              >
+                {siteCredit.name}
+              </a>{" "}
+              ·{" "}
+              <a
+                href={siteCredit.upwork}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-ivory/60 underline decoration-ivory/25 underline-offset-2 transition-colors duration-300 hover:text-gold"
+              >
+                Upwork
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

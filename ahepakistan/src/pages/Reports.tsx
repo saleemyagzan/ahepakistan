@@ -21,13 +21,19 @@ export function Reports() {
                 <p className="font-display text-4xl font-bold text-royal/25">{r.year}</p>
                 <h2 className="mt-4 font-display text-xl font-semibold text-ink">{r.title}</h2>
                 <p className="mt-3 flex-1 font-body text-sm leading-relaxed text-ink/70">{r.summary}</p>
-                <a
-                  href={`/documents/ahe-annual-report-${r.year}.pdf`}
-                  download
-                  className="lift mt-7 inline-flex w-fit rounded-xl bg-emerald px-6 py-3 font-body text-sm font-medium text-ivory"
-                >
-                  Download Report
-                </a>
+                {r.available ? (
+                  <a
+                    href={`/documents/ahe-annual-report-${r.year}.pdf`}
+                    download
+                    className="lift mt-7 inline-flex w-fit rounded-xl bg-emerald px-6 py-3 font-body text-sm font-medium text-ivory"
+                  >
+                    Download Report
+                  </a>
+                ) : (
+                  <span className="mt-7 inline-flex w-fit rounded-xl border border-ink/15 px-6 py-3 font-body text-sm font-medium text-ink/40">
+                    Coming Soon
+                  </span>
+                )}
               </article>
             </Reveal>
           ))}

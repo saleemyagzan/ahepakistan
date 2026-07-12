@@ -1,6 +1,7 @@
 import { PhotoSlot } from "@/components/Organic"
 import { PageHero } from "@/components/PageHero"
 import { Reveal } from "@/components/Reveal"
+import { ShareButtons } from "@/components/ShareButtons"
 import { blogPosts, domainColor } from "@/data/site"
 
 export function Blog() {
@@ -15,7 +16,7 @@ export function Blog() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {blogPosts.map((post, i) => (
             <Reveal key={post.title} delay={(i % 4) * 100}>
-              <article className="lift flex h-full flex-col overflow-hidden rounded-2xl border border-ink/8 bg-ivory">
+              <article className="card-pop flex h-full flex-col overflow-hidden rounded-2xl border border-ink/8 bg-ivory">
                 <PhotoSlot
                   label="Post photography"
                   from={domainColor[post.domain]}
@@ -35,6 +36,7 @@ export function Blog() {
                   <p className="mt-1.5 font-body text-xs text-ink/50">{post.date}</p>
                   <p className="mt-3 flex-1 font-body text-[0.82rem] leading-relaxed text-ink/65">{post.excerpt}</p>
                   <span className="mt-4 font-body text-sm font-medium text-emerald">Read More</span>
+                  <ShareButtons title={post.title} className="mt-4 border-t border-ink/8 pt-4" />
                 </div>
               </article>
             </Reveal>

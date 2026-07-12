@@ -88,6 +88,32 @@ export function DomainIcon({ domain, color, className }: { domain: string; color
 }
 
 /**
+ * Vibrant filled badge for a domain icon — solid color circle, white icon
+ * strokes. Used wherever a domain needs to read as bold and colorful rather
+ * than a quiet line-icon accent.
+ */
+export function DomainBadge({
+  domain,
+  color,
+  className,
+  size = "h-14 w-14",
+}: {
+  domain: string
+  color: string
+  className?: string
+  size?: string
+}) {
+  return (
+    <span
+      className={cn("lift inline-flex shrink-0 items-center justify-center rounded-full", size, className)}
+      style={{ background: color, boxShadow: `0 10px 24px -10px ${color}99` }}
+    >
+      <DomainIcon domain={domain} color="#F8F6F0" className="h-7 w-7" />
+    </span>
+  )
+}
+
+/**
  * Photography slot — a calm duotone placeholder panel awaiting real AHE
  * program photography (natural light, real students). No stock imagery.
  */

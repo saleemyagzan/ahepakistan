@@ -10,18 +10,18 @@ import { cn } from "@/lib/utils"
 
 const orgLevels = [
   { role: "Founder", detail: "Rehmat Khan" },
-  { role: "CEO", detail: "Executive leadership and strategy" },
+  { role: "CEO", detail: "Anam Karim" },
   { role: "Program Leads", detail: "One lead per domain and flagship program" },
   { role: "Trainers", detail: "Certified facilitators and coaches" },
   { role: "Volunteers", detail: "Alumni and community volunteers" },
 ]
 
 const steps = [
-  { n: "01", h: "Listen", p: "We begin in the community — parents, teachers, and students shape what we run and where." },
-  { n: "02", h: "Design", p: "Programs are built on the four-domain framework, with safeguarding and safety planned first." },
-  { n: "03", h: "Deliver", p: "Trained facilitators run every program to a written standard, from camps to Olympiads." },
-  { n: "04", h: "Measure", p: "Attendance, outcomes, and student reflections are recorded for every cohort." },
-  { n: "05", h: "Report", p: "Results go into public annual reports — to families, partners, and regulators alike." },
+  { n: "01", h: "Clear Goals", p: "Every program starts with a defined objective — never activity for its own sake." },
+  { n: "02", h: "Defined Participants", p: "We know exactly who a program is for before we design a single session." },
+  { n: "03", h: "Simple Execution", p: "Structured, repeatable steps that trainers can run to a written standard." },
+  { n: "04", h: "Review and Feedback", p: "Every cohort closes with structured reflection, not just a certificate." },
+  { n: "05", h: "Measurable Outcomes", p: "Results are recorded and go into public annual reports." },
 ]
 
 /* Vertical org chart that draws itself in on scroll — lines extend, nodes fade in sequentially. */
@@ -89,18 +89,20 @@ export function AboutUs() {
             <SectionHeading eyebrow="Founder story" title="It Began With One Question" />
             <div className="mt-6 space-y-4 font-body text-[0.95rem] leading-relaxed text-ink/75">
               <p>
-                On 13 December 2020, Rehmat Khan founded the Academy for Holistic Education with a question that would
-                not leave him alone: why do our brightest students leave school capable of passing exams, but not of
-                leading lives?
+                AHE was founded by Rehmat Khan on 13 December 2020 with one clear belief: education must go beyond
+                books. It must develop the whole individual. What started as small community initiatives is now a
+                structured platform for youth development that addresses the gap between traditional education and
+                real-life development.
               </p>
               <p>
-                The answer became a framework — Physical, Mental, Emotional, and Spiritual development, treated as one
-                inseparable whole — and the framework became programs: Olympiads in the snow, science competitions in
-                the valleys, camps under the open sky, and digital-skills cohorts that turn talent into livelihood.
+                The belief became a framework — Physical, Mental, Emotional, and Spiritual development, treated as one
+                inseparable whole — and the framework became programs: competitions in the valleys, winter challenges
+                in the mountains, camps under the open sky, and digital-skills cohorts that turn talent into
+                livelihood.
               </p>
               <p>
                 Five years on, AHE is a registered institution with more than five hundred students engaged across
-                three districts — and the question still drives everything we build.
+                three districts — and the belief still drives everything we build.
               </p>
             </div>
           </Reveal>
@@ -113,16 +115,20 @@ export function AboutUs() {
         <div className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
           <Reveal>
             <SectionHeading eyebrow="Our approach" title="Vision, Mission, and Method" />
+            <p className="mt-6 max-w-2xl font-body text-sm leading-relaxed text-ink/70">
+              We do not run random events. We design structured programs with clear objectives, measurable outcomes,
+              and long-term impact. Every activity aligns with one or more of our four development domains.
+            </p>
           </Reveal>
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {[
               {
                 h: "Vision",
-                p: "A Pakistan where every young person — regardless of district or income — grows up physically capable, mentally rigorous, emotionally steady, and spiritually grounded.",
+                p: "To build a society where individuals grow with balance, clarity, and purpose.",
               },
               {
                 h: "Mission",
-                p: "To design and deliver structured, credible youth-development programs across the four domains, starting where opportunity is scarcest.",
+                p: "We design and deliver structured programs that develop physical, mental, emotional, and spiritual strength in youth.",
               },
               {
                 h: "Method",
@@ -155,7 +161,7 @@ export function AboutUs() {
               </p>
             </Reveal>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {["Founder — Rehmat Khan", "Chief Executive Officer", "Head of Programs", "Head of Partnerships"].map((r, i) => (
+              {["Founder — Rehmat Khan", "CEO — Anam Karim", "Head of Programs", "Head of Partnerships"].map((r, i) => (
                 <Reveal key={r} delay={i * 100}>
                   <div className="rounded-2xl border border-ink/8 bg-ivory p-5">
                     <PhotoSlot label="Team portrait" ratio="aspect-square" className="mb-4" from="#1F3C88" to="#0B6E4F" />
@@ -203,6 +209,10 @@ export function AboutUs() {
         <div className="grid items-start gap-14 lg:grid-cols-2">
           <Reveal>
             <SectionHeading eyebrow="What makes AHE different" title="Standards, Not Sentiment" />
+            <p className="mt-6 max-w-lg font-body text-sm leading-relaxed text-ink/70">
+              AHE does not work through random events. We work through systems. Every activity is connected to one of
+              our four development domains and is designed to create long-term value.
+            </p>
             <ul className="mt-8 space-y-5">
               {[
                 "Four-domain framework applied to every program — never activity for activity's sake.",
@@ -222,7 +232,7 @@ export function AboutUs() {
           </Reveal>
           <Reveal delay={150}>
             <Parallax strength={0.05}>
-              <PhotoSlot label="Outdoor camp photography — students and trainers, golden hour" />
+              <PhotoSlot label="Students at play — everyday life, natural light" src="/images/school-life.jpg" />
             </Parallax>
           </Reveal>
         </div>
