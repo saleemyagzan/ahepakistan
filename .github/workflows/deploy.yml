@@ -38,15 +38,40 @@ jobs:
           LFTP_HOST: ${{ secrets.FTP_SERVER }}
           LFTP_DIR: ${{ secrets.FTP_SERVER_DIR }}
         run: |
+          set -o pipefail
           sudo apt-get update -qq && sudo apt-get install -y -qq lftp
           cat > /tmp/deploy.lftp <<SCRIPT
+          set cmd:fail-exit true
           set ftp:ssl-allow no
+          set ftp:passive-mode true
           set net:max-retries 5
           set net:timeout 20
           set net:reconnect-interval-base 5
           set net:reconnect-interval-multiplier 1
+          set xfer:log yes
+          set xfer:log-file /tmp/lftp-xfer.log
           open -u "$LFTP_USER","$LFTP_PASS" "$LFTP_HOST"
-          mirror -R --delete --verbose --parallel=2 ./dist/ "$LFTP_DIR"
+          pwd
+          cd "$LFTP_DIR"
+          pwd
+          ls
+          mirror -R --delete --verbose=3 --parallel=2 ./dist/ .
           bye
           SCRIPT
-          lftp -f /tmp/deploy.lftp
+
+          lftp -f /tmp/deploy.lftp 2>&1 | tee /tmp/lftp-session.log
+
+          echo "----- Transfer log -----"
+          if [ -f /tmp/lftp-xfer.log ]; then
+            cat /tmp/lftp-xfer.log
+            UPLOAD_COUNT=$(grep -c '^put ' /tmp/lftp-xfer.log)
+          else
+            echo "(no transfer log produced)"
+            UPLOAD_COUNT=0
+          fi
+          echo "----- Files actually uploaded: $UPLOAD_COUNT -----"
+
+          if [ "$UPLOAD_COUNT" -eq 0 ]; then
+            echo "::error::lftp reported success but uploaded 0 files — connection/login worked but transfers did not happen. See job log above for the pwd/ls diagnostic output and full session log."
+            exit 1
+          fi
