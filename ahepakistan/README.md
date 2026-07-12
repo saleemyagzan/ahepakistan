@@ -1,7 +1,5 @@
 # AHE Pakistan — Academy for Holistic Education
 
-<!-- deploy-verification-marker: single deliberate deploy test --->
-
 Premium motion website for the Academy for Holistic Education Pakistan (SECP CUIN 0305112),
 built to the "Modern Organic / Sophisticated Calming" brand system.
 
@@ -63,14 +61,26 @@ All content lives in `src/data/site.ts`.
 
 ## Known issue — Hostinger image optimizer rejecting new uploads
 
-As of 2026-07-12, the `test` subdomain's LiteSpeed image optimizer started returning
-`422 Invalid source image` for **every new image file** uploaded via the deploy
-pipeline — confirmed with a trivial 100×100 solid-color PNG, so it is not specific to
-any one photo's content. Previously-deployed images (hero, domains, programs) still
-serve fine. Likely a transient service issue or a rate-limit triggered by rapid
-successive deploys while diagnosing it.
+As of 2026-07-12, the `test` subdomain's LiteSpeed image optimizer was returning
+`422 Invalid source image` for new image uploads (confirmed with a trivial 100×100
+solid-color PNG, so not specific to any one photo's content). Unresolved as of this
+writing — worth re-testing now that the deploy pipeline itself is fixed (see below),
+since it may have been a downstream symptom of the same misconfiguration.
 
 The real playground photo (`public/images/students-playground-source.jpg`) is in the
 repo but not currently referenced in `AboutUs.tsx` (see the `TODO` comment there) —
-re-wire it once this clears. If it doesn't clear on its own, check Hostinger's image
-optimization settings in hPanel, or contact their support.
+re-wire it once confirmed working.
+
+## Resolved — deploy pipeline was silently no-op'ing for hours (2026-07-12)
+
+`FTP_SERVER_DIR` was changed away from its correct value (`public_html/`) while
+debugging an unrelated image issue, based on a misreading of the FTP account's
+directory structure. This caused every deploy to report "success" while actually
+uploading to the wrong location (a set of folders sitting as siblings to
+`public_html` rather than inside it) — the live site silently stopped updating for
+several hours across ~15 deploys before this was caught. `FTP_SERVER_DIR` is
+confirmed correct at `public_html/` now. If deploys ever silently stop reflecting on
+the live site again: don't trust a green "success" status alone — verify with a
+uniquely-named marker file and check its `Last-Modified` header, or connect with an
+FTP client directly to confirm the account's actual root/chroot structure before
+changing `FTP_SERVER_DIR`.
