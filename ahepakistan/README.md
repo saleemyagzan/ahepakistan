@@ -59,12 +59,12 @@ All content lives in `src/data/site.ts`.
    portraits, Reports, Blog post images). Real program photography is wired in for the
    hero, all 4 domains, and 5 flagship programs.
 
-## Known issues
+## Deployment
 
-- **Occasional FTP connection timeouts.** This host's FTP occasionally drops the
-  control socket mid-deploy, failing the GitHub Actions run outright (not silently —
-  it shows as a failed run). A retry push almost always succeeds. Not yet worth
-  automating a retry-on-failure step unless it keeps recurring.
+Automated via GitHub Actions on every push to `ahepakistan/**`: builds the site and
+deploys `dist/` to the Hostinger `test` subdomain over SSH using `rsync` (see
+`.github/workflows/deploy.yml`). Requires the `SSH_PRIVATE_KEY` repo secret, whose
+public half is in Hostinger's authorized SSH keys.
 
 ## Known issue — Hostinger image optimizer rejecting new uploads
 
