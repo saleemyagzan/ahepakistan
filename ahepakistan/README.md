@@ -59,6 +59,13 @@ All content lives in `src/data/site.ts`.
    portraits, Reports, Blog post images). Real program photography is wired in for the
    hero, all 4 domains, and 5 flagship programs.
 
+## Known issues
+
+- **Occasional FTP connection timeouts.** This host's FTP occasionally drops the
+  control socket mid-deploy, failing the GitHub Actions run outright (not silently —
+  it shows as a failed run). A retry push almost always succeeds. Not yet worth
+  automating a retry-on-failure step unless it keeps recurring.
+
 ## Known issue — Hostinger image optimizer rejecting new uploads
 
 As of 2026-07-12, the `test` subdomain's LiteSpeed image optimizer was returning
