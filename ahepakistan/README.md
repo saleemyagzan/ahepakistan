@@ -1,5 +1,7 @@
 # AHE Pakistan — Academy for Holistic Education
 
+<!-- deploy-verification-marker: single deliberate deploy test --->
+
 Premium motion website for the Academy for Holistic Education Pakistan (SECP CUIN 0305112),
 built to the "Modern Organic / Sophisticated Calming" brand system.
 
