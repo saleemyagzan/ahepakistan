@@ -316,34 +316,189 @@ export const reports = [
   { year: "2024", title: "Annual Report 2024", summary: "Pending — will be published once finalized.", available: false },
 ]
 
-export const blogPosts = [
+export interface BlogSection {
+  heading?: string
+  paragraphs: string[]
+  /** Internal links surfaced under the section — real <Link> elements, not prose text. */
+  links?: { label: string; to: string }[]
+}
+
+export interface BlogPost {
+  slug: string
+  title: string
+  date: string
+  domain: DomainName
+  excerpt: string
+  /** SEO meta description — under 160 chars, may differ slightly from the on-page excerpt. */
+  metaDescription: string
+  sections: BlogSection[]
+}
+
+export const blogPosts: BlogPost[] = [
   {
+    slug: "what-is-holistic-education-guide-pakistan",
+    title: "What Is Holistic Education? A Complete Guide for Parents and Educators in Pakistan",
+    date: "13 July 2026",
+    domain: "Mental",
+    excerpt:
+      "Holistic education develops the whole young person, not just exam results. Here's what that actually means, and what it looks like in practice in Pakistan.",
+    metaDescription:
+      "A practical guide to holistic education in Pakistan: what it means, why it matters, and how AHE Pakistan builds it across four domains — Physical, Mental, Emotional, and Spiritual.",
+    sections: [
+      {
+        paragraphs: [
+          "Ask most parents in Pakistan what a good education looks like, and the answer usually comes down to marks: board results, entrance test scores, a seat in a good university program. It's an understandable answer — those things open doors. But a growing number of educators, psychologists, and parents are asking a harder question: what happens to a student who scores well but has never faced real physical hardship, never learned to sit with a difficult emotion, or never had to think for themselves outside a syllabus?",
+          "That question is the starting point for holistic education. It isn't a rejection of academic rigour — it's an insistence that academic rigour alone isn't enough.",
+        ],
+      },
+      {
+        heading: "What \"holistic education\" actually means",
+        paragraphs: [
+          "Holistic education is an approach that deliberately develops a young person across multiple dimensions of growth — not just intellectual, but physical, emotional, and spiritual — treating them as interconnected rather than separate. The word gets used loosely, so it's worth being precise: holistic education is not extracurricular activities bolted onto a normal school day. It's a framework where every dimension of development is planned, delivered, and measured with the same seriousness as academics.",
+          "At AHE Pakistan, we organize that framework into four domains: Physical, Mental, Emotional, and Spiritual. Each one addresses a different kind of capability a young person needs, and — critically — each one reinforces the others.",
+        ],
+      },
+      {
+        heading: "The four domains, briefly",
+        paragraphs: [
+          "Physical development builds discipline, stamina, and resilience through real challenge — outdoor expeditions, winter sport, and survival training rather than gym-class routine. Mental development builds structured thinking: logical reasoning, problem-solving under pressure, and academic clarity, tested through competitive platforms like a math Olympiad rather than rote memorization. Emotional development builds the self-awareness, confidence, and communication skills that schools rarely teach directly but every workplace and relationship demands. And Spiritual development — often the most misunderstood domain — builds purpose and values: not religious instruction, but the reflective capacity to know why you're doing what you're doing.",
+        ],
+        links: [{ label: "See the full framework on Our Domains", to: "/our-domains/" }],
+      },
+      {
+        heading: "Why this matters more in Pakistan, not less",
+        paragraphs: [
+          "Pakistan's schooling system, like many exam-driven systems, rewards memorization. That's not a controversial claim — it's a design feature. Employers, universities, and communities consistently report a gap between graduates who can pass exams and graduates who can exercise judgement, initiative, and resilience under real conditions. That gap is exactly what holistic education is built to close.",
+          "The case is sharper still in underserved districts. In much of Gilgit-Baltistan, for example, extraordinary young people simply never encounter structured competition, mentorship, or outdoor challenge — not because they lack ability, but because the infrastructure for it doesn't reach them. Holistic education, done properly, isn't a luxury add-on for well-resourced schools. It's an equity intervention.",
+        ],
+      },
+      {
+        heading: "What it looks like in practice",
+        paragraphs: [
+          "In practice, holistic education means a young person's week might include a structured math competition (The Little Scientist), a winter athletic program (the Snow Olympiad), a wilderness survival course (GB Survivor), and — bringing all four domains together in one residential experience — Jugnoo Camp, where physical challenge, structured learning, team practice, and evening reflection under open sky all happen inside a single arc.",
+          "It also means treating digital-economy skills as part of holistic development, not separate from it — which is why our 51 Freelancers Program exists: a 40-day structured training that turns a marketable skill into real income, combining mental rigor with the emotional confidence of client work.",
+        ],
+        links: [{ label: "See all current programs", to: "/programs/" }],
+      },
+      {
+        heading: "How to tell if a program is genuinely holistic",
+        paragraphs: [
+          "Three questions cut through most of the marketing language: Does the program have a written framework connecting each activity to a specific developmental outcome, or is it a collection of fun events? Does the organization publish outcomes and reports, or only testimonials? And does it reach students who wouldn't otherwise have access, or only those who can already afford enrichment?",
+          "AHE Pakistan is a registered non-profit (SECP-incorporated, 13 December 2020), and we publish our incorporation certificate and annual reports publicly — because if we're asking students to meet standards, we should hold ourselves to them first.",
+        ],
+      },
+      {
+        heading: "Getting involved",
+        paragraphs: [
+          "If you're a parent or educator exploring holistic education for the first time, start with the four-domain framework, then see it in action across our current programs. And if you're a school, corporate, or organization interested in bringing structured youth development to your community, here's how that partnership works.",
+        ],
+        links: [
+          { label: "Explore Our Domains", to: "/our-domains/" },
+          { label: "Explore Programs", to: "/programs/" },
+          { label: "Partner With AHE Pakistan", to: PARTNER_URL },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "why-we-built-a-math-competition-for-the-mountains",
     title: "Why We Built a Math Competition for the Mountains",
     date: "12 May 2026",
-    domain: "Mental" as DomainName,
+    domain: "Mental",
     excerpt:
       "Most students memorize formulas but cannot apply them. The Little Scientist exists to close that gap, one quiz round at a time.",
+    metaDescription:
+      "The Little Scientist is AHE Pakistan's Grades 6-8 math competition, built to develop logical reasoning and problem-solving in students across Gilgit-Baltistan.",
+    sections: [
+      {
+        paragraphs: [
+          "Most students memorize formulas but cannot apply them. That single sentence is the reason The Little Scientist exists — a structured math quiz competition for Grades 6–8 students across government, private, and AKES schools, built to develop logical reasoning, speed, and clarity rather than recall.",
+          "Competition structure is deliberately simple: individual participation, multiple quiz rounds, logical reasoning challenges, and time-based problem solving. No group projects to hide inside, no formula sheets to lean on. Just a student and a problem.",
+        ],
+      },
+      {
+        heading: "Why a competition, not a class",
+        paragraphs: [
+          "Classroom instruction is necessary but rarely sufficient to build confidence under pressure. A competition adds two ingredients a classroom can't: real stakes, and a stage. Students who place well remember it for years — not because of the medal, but because of what it proves to them about their own capability.",
+        ],
+        links: [{ label: "See who can participate", to: "/programs/the-little-scientist/" }],
+      },
+    ],
   },
   {
+    slug: "what-students-tell-us-after-jugnoo-camp",
     title: "What Students Tell Us After Jugnoo Camp",
     date: "28 March 2026",
-    domain: "Spiritual" as DomainName,
+    domain: "Spiritual",
     excerpt:
       "We asked one question at the end of camp: what changed? The answers were quieter, and deeper, than we expected.",
+    metaDescription:
+      "Jugnoo Camp is AHE Pakistan's flagship residential experience spanning all four development domains. Here's what students say changed for them.",
+    sections: [
+      {
+        paragraphs: [
+          "We asked one question at the end of camp: what changed? The answers were quieter, and deeper, than we expected — fewer stories about the zipline, more about the evening reflections under open sky.",
+          "Jugnoo Camp is the one AHE program deliberately designed to span all four domains — Physical, Mental, Emotional, and Spiritual — in a single residential arc. Days move through physical challenge and structured learning; evenings close with reflection, not lectures.",
+        ],
+      },
+      {
+        heading: "Why the name",
+        paragraphs: [
+          "Jugnoo means firefly — a small, deliberate point of light in the dark. It's an apt name for a camp built around quiet moments as much as loud ones.",
+        ],
+        links: [{ label: "Full program details", to: "/programs/jugnoo-camp/" }],
+      },
+    ],
   },
   {
+    slug: "cold-is-a-teacher-notes-from-the-snow-olympiad",
     title: "Cold Is a Teacher: Notes from the Snow Olympiad",
     date: "9 February 2026",
-    domain: "Physical" as DomainName,
+    domain: "Physical",
     excerpt:
       "Winter closes schools across the north. For two weeks, we turn it into an arena instead.",
+    metaDescription:
+      "The Snow Olympiad brings structured winter athletic competition to students in Gilgit-Baltistan, turning the region's hardest season into an arena.",
+    sections: [
+      {
+        paragraphs: [
+          "Winter closes schools across the north. For two weeks, we turn it into an arena instead. The Snow Olympiad brings structured winter athletic competition to students in Gilgit-Baltistan — events, training, and ceremony that treat mountain winter as an opportunity rather than an obstacle.",
+          "Cold, it turns out, is a patient teacher. It doesn't negotiate, and neither does a training schedule built around it. Students who complete a full season report a kind of discipline that's hard to manufacture in a warm classroom.",
+        ],
+      },
+      {
+        heading: "More than a sports day",
+        paragraphs: [
+          "The Snow Olympiad sits in our Physical development domain alongside GB Survivor — both built to develop endurance, teamwork, and outdoor competence through real conditions rather than simulations.",
+        ],
+        links: [{ label: "Snow Olympiad program details", to: "/programs/snow-olympiad/" }],
+      },
+    ],
   },
   {
+    slug: "teaching-confidence-like-a-skill-not-a-trait",
     title: "Teaching Confidence Like a Skill, Not a Trait",
     date: "17 December 2025",
-    domain: "Emotional" as DomainName,
+    domain: "Emotional",
     excerpt:
       "Confidence isn't a personality type. It's a set of reps — and our programs are built around getting students those reps.",
+    metaDescription:
+      "AHE Pakistan treats confidence as a trainable skill, not a fixed trait — built through public speaking, teamwork, and structured practice across every program.",
+    sections: [
+      {
+        paragraphs: [
+          "Confidence isn't a personality type. It's a set of reps — and our programs are built around getting students those reps, deliberately and repeatedly, rather than hoping confidence shows up on its own.",
+          "Emotional Development runs as a thread through every AHE program rather than existing as a single standalone course: public speaking inside The Little Scientist's competition stage, teamwork inside GB Survivor's outdoor challenges, composure inside the Snow Olympiad's competitive pressure.",
+        ],
+      },
+      {
+        heading: "Why treat it as a skill",
+        paragraphs: [
+          "Skills can be practiced. Traits feel fixed. Students who are told \"just be more confident\" rarely improve — students who are given a structured setting to speak, fail, and try again, reliably do. That's the whole design principle behind our Emotional Development track.",
+        ],
+        links: [{ label: "See the Emotional Development track", to: "/programs/emotional-development/" }],
+      },
+    ],
   },
 ]
 

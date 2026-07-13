@@ -2,9 +2,10 @@ import { useEffect } from "react"
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
 
 import { Layout } from "@/components/Layout"
-import { PARTNER_URL, programs } from "@/data/site"
+import { blogPosts, PARTNER_URL, programs } from "@/data/site"
 import { AboutUs } from "@/pages/AboutUs"
 import { Blog } from "@/pages/Blog"
+import { BlogPost } from "@/pages/BlogPost"
 import { Home } from "@/pages/Home"
 import { ImpactStories } from "@/pages/ImpactStories"
 import { NotFound } from "@/pages/NotFound"
@@ -27,12 +28,29 @@ const titles: Record<string, string> = {
   "/privacy-policy/": "Privacy Policy — AHE Pakistan",
 }
 
+const DEFAULT_META_DESCRIPTION =
+  "Holistic education and youth development programs in Pakistan. AHE Pakistan develops young people across four domains — Physical, Mental, Emotional, and Spiritual."
+
 function DocumentTitle() {
   const { pathname } = useLocation()
   useEffect(() => {
     const normalized = pathname.endsWith("/") ? pathname : `${pathname}/`
     const program = programs.find((p) => normalized === `/programs/${p.slug}/`)
-    document.title = program ? `${program.name} — AHE Pakistan` : (titles[normalized] ?? "AHE Pakistan")
+    const post = blogPosts.find((p) => normalized === `/blog/${p.slug}/`)
+
+    document.title = post
+      ? `${post.title} — AHE Pakistan`
+      : program
+        ? `${program.name} — AHE Pakistan`
+        : (titles[normalized] ?? "AHE Pakistan")
+
+    let meta = document.querySelector('meta[name="description"]')
+    if (!meta) {
+      meta = document.createElement("meta")
+      meta.setAttribute("name", "description")
+      document.head.appendChild(meta)
+    }
+    meta.setAttribute("content", post ? post.metaDescription : DEFAULT_META_DESCRIPTION)
   }, [pathname])
   return null
 }
@@ -52,6 +70,7 @@ export default function App() {
           <Route path="reports" element={<Reports />} />
           <Route path="partner-with-us-ahe-pakistan" element={<Partner />} />
           <Route path="blog" element={<Blog />} />
+          <Route path="blog/:slug" element={<BlogPost />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Route>
