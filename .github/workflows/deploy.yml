@@ -35,7 +35,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          set -o pipefail -e
+          set -o pipefail
 
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
@@ -47,26 +47,37 @@ jobs:
           REMOTE="u901645794@145.79.58.152"
 
           echo "----- Syncing files to server (rsync -avz --delete over SSH) -----"
-          rsync -avz --delete -e "$SSH_CMD" ./dist/ "$REMOTE:$TARGET"
+          RSYNC_LOG=$(rsync -avz --delete -e "$SSH_CMD" ./dist/ "$REMOTE:$TARGET" 2>&1)
+          RSYNC_EXIT=$?
+          echo "$RSYNC_LOG"
 
-          # Verify the deploy actually landed by md5-comparing the local build's
-          # index.html against the copy now on the server. This guards against the
-          # "reports success but uploaded nothing" failures we hit with FTP/lftp —
-          # if the hashes don't match, fail the job loudly rather than silently.
-          REMOTE_INDEX_HASH=$($SSH_CMD "$REMOTE" "md5sum '${TARGET}index.html' 2>/dev/null | cut -d' ' -f1" || echo "")
+          REMOTE_INDEX_HASH=$($SSH_CMD "$REMOTE" "md5sum '${TARGET}index.html' 2>/dev/null | cut -d' ' -f1" 2>/dev/null || echo "")
           LOCAL_INDEX_HASH=$(md5sum ./dist/index.html | cut -d' ' -f1)
+          echo "rsync exit code: $RSYNC_EXIT"
           echo "Local index.html md5:  $LOCAL_INDEX_HASH"
           echo "Remote index.html md5: $REMOTE_INDEX_HASH"
 
-          if [ "$LOCAL_INDEX_HASH" != "$REMOTE_INDEX_HASH" ]; then
-            echo "::error::index.html on server does not match this build after rsync."
+          {
+            echo "## Deploy result"
+            echo ""
+            echo "- rsync exit code: \`$RSYNC_EXIT\`"
+            echo "- Local index.html md5: \`$LOCAL_INDEX_HASH\`"
+            echo "- Remote index.html md5: \`$REMOTE_INDEX_HASH\`"
+            echo ""
+            echo "**rsync output (last 40 lines):**"
+            echo '```'
+            echo "$RSYNC_LOG" | tail -40
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$RSYNC_EXIT" -ne 0 ] || [ "$LOCAL_INDEX_HASH" != "$REMOTE_INDEX_HASH" ]; then
+            echo "::error::Deploy failed — rsync exit $RSYNC_EXIT, or index.html mismatch. See Step Summary for the full rsync output."
             exit 1
           fi
-          echo "----- Verified: server matches this build exactly -----"
 
+          echo "----- Verified: server matches this build exactly -----"
           # NOTE: test.ahepakistan.org is fronted by Hostinger's CDN (ALIAS ->
           # cdn.hstgr.net). The CDN auto-clears every ~30 min, so changes appear
           # within that window automatically. For an immediate refresh, purge via
           # hPanel -> Cache Manager -> Purge All, or disable Automatic cache on the
           # test subdomain so deploys show instantly.
-          echo "Deploy complete. If the live site looks stale, purge the CDN cache in hPanel (auto-clears within ~30 min)."
