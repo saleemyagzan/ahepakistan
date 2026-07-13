@@ -1,4 +1,4 @@
-name: Build and Deploy AHE Pakistan (test subdomain)
+name: Build and Deploy AHE Pakistan (production)
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
         working-directory: ahepakistan
         run: npm run build
 
-      - name: Deploy to Hostinger (test.ahepakistan.org) via rsync over SSH
+      - name: Deploy to Hostinger (ahepakistan.org) via rsync over SSH
         working-directory: ahepakistan
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -43,7 +43,7 @@ jobs:
           ssh-keyscan -p 65002 145.79.58.152 >> ~/.ssh/known_hosts 2>/dev/null
 
           SSH_CMD="ssh -i ~/.ssh/deploy_key -p 65002 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15"
-          TARGET="/home/u901645794/domains/test.ahepakistan.org/public_html/"
+          TARGET="/home/u901645794/domains/ahepakistan.org/public_html/"
           REMOTE="u901645794@145.79.58.152"
 
           echo "----- Syncing files to server (rsync -avz --delete over SSH) -----"
@@ -76,8 +76,6 @@ jobs:
           fi
 
           echo "----- Verified: server matches this build exactly -----"
-          # NOTE: test.ahepakistan.org is fronted by Hostinger's CDN (ALIAS ->
-          # cdn.hstgr.net). The CDN auto-clears every ~30 min, so changes appear
-          # within that window automatically. For an immediate refresh, purge via
-          # hPanel -> Cache Manager -> Purge All, or disable Automatic cache on the
-          # test subdomain so deploys show instantly.
+          # NOTE: ahepakistan.org resolves directly to the server (no CDN in
+          # front, unlike the old test.ahepakistan.org setup), so deploys show
+          # live immediately with no cache-purge step needed.
