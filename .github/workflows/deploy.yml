@@ -40,11 +40,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p 65002 145.79.58.152 >> ~/.ssh/known_hosts 2>/dev/null
+          ssh-keyscan -p 65002 145.79.30.130 >> ~/.ssh/known_hosts 2>/dev/null
 
           SSH_CMD="ssh -i ~/.ssh/deploy_key -p 65002 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15"
           TARGET="/home/u901645794/domains/ahepakistan.org/public_html/"
-          REMOTE="u901645794@145.79.58.152"
+          REMOTE="u901645794@145.79.30.130"
 
           echo "----- Syncing files to server (rsync -avz --delete over SSH) -----"
           RSYNC_LOG=$(rsync -avz --delete -e "$SSH_CMD" ./dist/ "$REMOTE:$TARGET" 2>&1)
@@ -76,6 +76,8 @@ jobs:
           fi
 
           echo "----- Verified: server matches this build exactly -----"
-          # NOTE: ahepakistan.org resolves directly to the server (no CDN in
-          # front, unlike the old test.ahepakistan.org setup), so deploys show
-          # live immediately with no cache-purge step needed.
+          # NOTE: server was re-provisioned on 2026-07-13 after an accidental
+          # website deletion in hPanel (WordPress uninstall removed the whole
+          # site config, not just WP files). New server IP + new SSH deploy
+          # key were issued; update both here and in the SSH_PRIVATE_KEY
+          # secret if this ever needs to move again.
