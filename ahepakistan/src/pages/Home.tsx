@@ -22,6 +22,8 @@ export function Home() {
           alt=""
           className="shape-in absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
         />
         {/* Soft gradient scrim, not a flat dark box */}
         <div className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/55 to-ivory/10" aria-hidden="true" />
