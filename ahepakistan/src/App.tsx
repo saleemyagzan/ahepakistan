@@ -1,20 +1,21 @@
-import { useEffect } from "react"
+import { lazy, Suspense, useEffect } from "react"
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
 
 import { Layout } from "@/components/Layout"
 import { blogPosts, PARTNER_URL, programs } from "@/data/site"
-import { AboutUs } from "@/pages/AboutUs"
-import { Blog } from "@/pages/Blog"
-import { BlogPost } from "@/pages/BlogPost"
 import { Home } from "@/pages/Home"
-import { ImpactStories } from "@/pages/ImpactStories"
-import { NotFound } from "@/pages/NotFound"
-import { OurDomains } from "@/pages/OurDomains"
-import { Partner } from "@/pages/Partner"
-import { PrivacyPolicy } from "@/pages/PrivacyPolicy"
-import { ProgramDetail } from "@/pages/ProgramDetail"
-import { ProgramsIndex } from "@/pages/ProgramsIndex"
-import { Reports } from "@/pages/Reports"
+
+const AboutUs = lazy(() => import("@/pages/AboutUs").then((m) => ({ default: m.AboutUs })))
+const Blog = lazy(() => import("@/pages/Blog").then((m) => ({ default: m.Blog })))
+const BlogPost = lazy(() => import("@/pages/BlogPost").then((m) => ({ default: m.BlogPost })))
+const ImpactStories = lazy(() => import("@/pages/ImpactStories").then((m) => ({ default: m.ImpactStories })))
+const NotFound = lazy(() => import("@/pages/NotFound").then((m) => ({ default: m.NotFound })))
+const OurDomains = lazy(() => import("@/pages/OurDomains").then((m) => ({ default: m.OurDomains })))
+const Partner = lazy(() => import("@/pages/Partner").then((m) => ({ default: m.Partner })))
+const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy").then((m) => ({ default: m.PrivacyPolicy })))
+const ProgramDetail = lazy(() => import("@/pages/ProgramDetail").then((m) => ({ default: m.ProgramDetail })))
+const ProgramsIndex = lazy(() => import("@/pages/ProgramsIndex").then((m) => ({ default: m.ProgramsIndex })))
+const Reports = lazy(() => import("@/pages/Reports").then((m) => ({ default: m.Reports })))
 
 const titles: Record<string, string> = {
   "/": "Academy for Holistic Education Pakistan — Educate the Mind. Enlighten the Heart. Empower the Soul.",
@@ -59,22 +60,24 @@ export default function App() {
   return (
     <BrowserRouter>
       <DocumentTitle />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about-us" element={<AboutUs />} />
-          <Route path="our-domains" element={<OurDomains />} />
-          <Route path="programs" element={<ProgramsIndex />} />
-          <Route path="programs/:slug" element={<ProgramDetail />} />
-          <Route path="impact-stories" element={<ImpactStories />} />
-          <Route path="reports" element={<Reports />} />
-          <Route path="partner-with-us-ahe-pakistan" element={<Partner />} />
-          <Route path="blog" element={<Blog />} />
-          <Route path="blog/:slug" element={<BlogPost />} />
-          <Route path="privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about-us" element={<AboutUs />} />
+            <Route path="our-domains" element={<OurDomains />} />
+            <Route path="programs" element={<ProgramsIndex />} />
+            <Route path="programs/:slug" element={<ProgramDetail />} />
+            <Route path="impact-stories" element={<ImpactStories />} />
+            <Route path="reports" element={<Reports />} />
+            <Route path="partner-with-us-ahe-pakistan" element={<Partner />} />
+            <Route path="blog" element={<Blog />} />
+            <Route path="blog/:slug" element={<BlogPost />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   )
 }
